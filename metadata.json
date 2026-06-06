@@ -1,0 +1,6 @@
+{
+  "name": "Alberto Boffi - Portfolio",
+  "description": "Minimal, modern, developer-centric static portfolio.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
