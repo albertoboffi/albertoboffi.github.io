@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, Inject, PLATFORM_ID, OnInit } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 interface Experience {
   company: string;
@@ -46,8 +47,60 @@ interface Skill {
   selector: 'app-root',
   imports: [],
   templateUrl: './app.html',
+  host: {
+    '(window:scroll)': 'onScroll()',
+    '(window:resize)': 'onScroll()'
+  }
 })
-export class App {
+export class App implements OnInit {
+  activeSection = signal<string>('about');
+
+  sections = [
+    { id: 'about', label: 'About' },
+    { id: 'experience', label: 'Experience' },
+    { id: 'education', label: 'Education' },
+    { id: 'skills', label: 'Skills' },
+    { id: 'projects', label: 'Projects' },
+    { id: 'blog', label: 'Blog' },
+    { id: 'extracurricular', label: 'Extracurricular' }
+  ];
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
+  ngOnInit() {
+    this.onScroll();
+  }
+
+  onScroll() {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    let current = this.sections[0].id;
+    const scrollY = window.scrollY;
+    const detectionOffset = 200;
+
+    for (const section of this.sections) {
+      const element = document.getElementById(section.id);
+      if (element) {
+        const elementTop = element.getBoundingClientRect().top + scrollY;
+        if (elementTop <= scrollY + detectionOffset) {
+          current = section.id;
+        }
+      }
+    }
+
+    const documentHeight = Math.max(
+      document.body.scrollHeight,
+      document.documentElement.scrollHeight
+    );
+    if (Math.ceil(scrollY + window.innerHeight) >= documentHeight - 10) {
+      current = this.sections[this.sections.length - 1].id;
+    }
+
+    if (this.activeSection() !== current) {
+      this.activeSection.set(current);
+    }
+  }
+
   about = {
     name: 'Alberto Boffi',
     role: 'Computer Science Engineer',
@@ -151,10 +204,10 @@ export class App {
     }
   ];
 
-  contacts = [
-    { name: 'Email', value: 'albertoboffi.1999@gmail.com', url: 'mailto:albertoboffi.1999@gmail.com' },
-    { name: 'GitHub', value: 'github.com', url: '#' },
-    { name: 'LinkedIn', value: 'linkedin.com', url: '#' },
-    { name: 'X / Twitter', value: 'twitter.com', url: '#' }
-  ];
+  socialLinks = {
+    email: 'mailto:albertoboffi.1999@gmail.com',
+    github: 'https://github.com',
+    linkedin: 'https://linkedin.com',
+    twitter: 'https://twitter.com'
+  };
 }
