@@ -65,7 +65,7 @@ export class App implements OnInit {
     { id: 'extracurricular', label: 'Extracurricular' }
   ];
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
 
   ngOnInit() {
     this.onScroll();
@@ -102,43 +102,37 @@ export class App implements OnInit {
   }
 
   about = {
-    name: 'Alberto Boffi',
+    name: "Alberto Boffi",
+    greet: "Hi, I'm Alberto Boffi 👋",
     role: 'Computer Science Engineer',
-    description: 'I am a computer science engineer specializing in scalable backend architectures and robust full-stack applications. I enjoy building performant, minimal, and highly reliable software.',
-    photo: 'https://placehold.co/400x400/f3f4f6/4b5563?text=AB'
+    description: 'I am a computer science engineer specializing in scalable full-stack applications, with a deep architectural foundation spanning computer graphics, cybersecurity, artificial intelligence, and advanced algorithms.',
+    photo: './assets/albertoboffi.webp'
   };
 
   workExperience: Experience[] = [
     {
-      company: 'Tech Innovators Corp',
+      company: 'Connect Reply',
       role: 'Software Engineer',
-      date: 'Jan 2023 — Present',
-      description: 'Architecting scalable microservices using Go and Node.js. Reduced data processing latency by 35% and led the backend integration for a major payment system.',
-      photo: 'https://placehold.co/120x120/f3f4f6/4b5563?text=TIC'
-    },
-    {
-      company: 'Global Systems Lab',
-      role: 'Backend Developer Intern',
-      date: 'Jun 2022 — Dec 2022',
-      description: 'Maintained internal CI/CD pipelines, migrated legacy Python scripts to Go, and improved database query execution times.',
-      photo: 'https://placehold.co/120x120/f3f4f6/4b5563?text=GSL'
+      date: 'May 2024 — Present',
+      description: 'Design and implement web application architectures that manage integration with connected devices across international markets. Cordinate the full software development lifecycle and interface directly with global stakeholders to deliver scalable solutions.',
+      photo: './assets/reply.webp'
     }
   ];
 
   education: Education[] = [
     {
-      school: 'Politecnico di Milano',
-      course: 'Master of Science in Computer Science Engineering',
-      date: '2022 — 2024',
-      description: 'Focus on distributed systems, advanced algorithms, and software engineering principles. Graduated with honors.',
-      photo: 'https://placehold.co/120x120/f3f4f6/4b5563?text=Poli'
+      school: 'Politecnico di Milano • Master of Science',
+      course: 'Computer Science & Engineering',
+      date: 'Sept. 2021 — April 2024',
+      description: "• Grade: 110/110 Cum Laude\n• Completed my thesis with VirtualRelativity, an interactive simulation of the Special Theory of Relativity in Virtual Reality.",
+      photo: './assets/polimi.webp'
     },
     {
-      school: 'Politecnico di Milano',
-      course: 'Bachelor of Science in Computer Engineering',
-      date: '2019 — 2022',
-      description: 'Core focus on mathematics, systems architecture, and low-level programming.',
-      photo: 'https://placehold.co/120x120/f3f4f6/4b5563?text=Poli'
+      school: 'Politecnico di Milano • Bachelor of Science',
+      course: 'Ingegneria Informatica',
+      date: 'Sept. 2018 — Sept. 2021',
+      description: '',
+      photo: './assets/polimi.webp'
     }
   ];
 
@@ -206,8 +200,7 @@ export class App implements OnInit {
 
   socialLinks = {
     email: 'mailto:albertoboffi.1999@gmail.com',
-    github: 'https://github.com',
-    linkedin: 'https://linkedin.com',
-    twitter: 'https://twitter.com'
+    github: 'https://github.com/albertoboffi/',
+    linkedin: 'https://www.linkedin.com/in/alberto-boffi/'
   };
 }
