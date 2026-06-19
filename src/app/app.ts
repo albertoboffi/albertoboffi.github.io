@@ -105,7 +105,7 @@ export class App implements OnInit {
     name: "Alberto Boffi",
     greet: "Hi, I'm Alberto Boffi 👋",
     role: 'Computer Science Engineer',
-    description: 'I am a computer science engineer specializing in scalable full-stack applications, with a deep architectural foundation spanning computer graphics, cybersecurity, artificial intelligence, and advanced algorithms.',
+    description: 'I am a computer science engineer specializing in scalable full-stack applications and artificial intelligence, with a deep architectural foundation spanning computer graphics, cybersecurity and advanced algorithms.',
     photo: './assets/albertoboffi.webp'
   };
 
@@ -114,7 +114,7 @@ export class App implements OnInit {
       company: 'Connect Reply',
       role: 'Software Engineer',
       date: 'May 2024 — Present',
-      description: 'Design and implement web application architectures that manage integration with connected devices across international markets. Cordinate the full software development lifecycle and interface directly with global stakeholders to deliver scalable solutions.',
+      description: 'Design and implement web applications integrating connected devices across international markets, leveraging autonomous agents and LLM-driven solutions. Coordinate the full SDLC and interface with global stakeholders to deliver scalable, intelligent applications.',
       photo: './assets/reply.webp'
     }
   ];
@@ -187,14 +187,19 @@ export class App implements OnInit {
 
   extracurricular: Extracurricular[] = [
     {
-      title: 'Open Source Contributor',
-      description: 'Regularly submitting patches and feature proposals to major open-source observability frameworks out of pure passion.',
-      photo: 'https://placehold.co/120x120/f3f4f6/4b5563?text=OSS'
+      title: 'Polimi Athletics Team',
+      description: 'Former member of the Official Athletics Team of Politecnico di Milano.',
+      photo: './assets/sport_polimi.webp'
     },
     {
-      title: 'University Hackathon Coordinator',
-      description: 'Organized competitive coding challenges for over 250 engineering students, managing sponsor integrations and judging panels.',
-      photo: 'https://placehold.co/120x120/f3f4f6/4b5563?text=Hack'
+      title: 'Competitive Football',
+      description: 'Football career spanning 15 years, with experience up to the regional level.',
+      photo: './assets/figc.webp'
+    },
+    {
+      title: 'Graphics Design',
+      description: 'Long-standing passion for video editing, video content creation and graphic design for digital communication.',
+      photo: './assets/graphics_design.webp'
     }
   ];
 
