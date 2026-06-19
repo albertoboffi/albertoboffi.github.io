@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal, Inject, PLATFORM_ID, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, computed, Inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
 interface Experience {
@@ -37,9 +37,14 @@ interface Extracurricular {
   photo: string;
 }
 
-interface Skill {
+interface SkillItem {
   name: string;
   url: string;
+}
+
+interface SkillCategory {
+  category: string;
+  items: SkillItem[];
 }
 
 @Component({
@@ -54,6 +59,7 @@ interface Skill {
 })
 export class App implements OnInit {
   activeSection = signal<string>('about');
+  activeSkillCategory = signal<string>('AI & Agentic Systems');
 
   sections = [
     { id: 'about', label: 'About' },
@@ -136,22 +142,83 @@ export class App implements OnInit {
     }
   ];
 
-  skills: Skill[] = [
-    { name: 'TypeScript', url: 'https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white' },
-    { name: 'Go', url: 'https://img.shields.io/badge/Go-00ADD8?style=flat-square&logo=go&logoColor=white' },
-    { name: 'Rust', url: 'https://img.shields.io/badge/Rust-000000?style=flat-square&logo=rust&logoColor=white' },
-    { name: 'Python', url: 'https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white' },
-    { name: 'C++', url: 'https://img.shields.io/badge/C++-00599C?style=flat-square&logo=c%2B%2B&logoColor=white' },
-    { name: 'Java', url: 'https://img.shields.io/badge/Java-ED8B00?style=flat-square&logo=java&logoColor=white' },
-    { name: 'PostgreSQL', url: 'https://img.shields.io/badge/PostgreSQL-316192?style=flat-square&logo=postgresql&logoColor=white' },
-    { name: 'Redis', url: 'https://img.shields.io/badge/Redis-DC382D?style=flat-square&logo=redis&logoColor=white' },
-    { name: 'Docker', url: 'https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white' },
-    { name: 'Kubernetes', url: 'https://img.shields.io/badge/Kubernetes-326CE5?style=flat-square&logo=kubernetes&logoColor=white' },
-    { name: 'AWS', url: 'https://img.shields.io/badge/AWS-232F3E?style=flat-square&logo=amazon-aws&logoColor=white' },
-    { name: 'Angular', url: 'https://img.shields.io/badge/Angular-DD0031?style=flat-square&logo=angular&logoColor=white' },
-    { name: 'React', url: 'https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB' },
-    { name: 'Linux', url: 'https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=black' }
+  skills: SkillCategory[] = [
+    {
+      category: 'AI & Agentic Systems',
+      items: [
+        { name: 'LLM Integration', url: 'https://img.shields.io/badge/LLM_Integration-374151?style=flat-square' },
+        { name: 'Autonomous Agents', url: 'https://img.shields.io/badge/Autonomous_Agents-374151?style=flat-square' },
+        { name: 'Multi-Agent Workflows', url: 'https://img.shields.io/badge/Multi--Agent_Workflows-374151?style=flat-square' },
+        { name: 'Prompt Engineering', url: 'https://img.shields.io/badge/Prompt_Engineering-374151?style=flat-square' },
+        { name: 'Claude Code', url: 'https://img.shields.io/badge/Claude_Code-D97757?style=flat-square&logo=anthropic&logoColor=white' },
+        { name: 'GitHub Copilot', url: 'https://img.shields.io/badge/GitHub_Copilot-000000?style=flat-square&logo=github&logoColor=white' },
+        { name: 'Google AI Studio', url: 'https://img.shields.io/badge/Google_AI_Studio-4285F4?style=flat-square&logo=google&logoColor=white' },
+        { name: 'Google Antigravity', url: 'https://img.shields.io/badge/Google_Antigravity-4285F4?style=flat-square&logo=google&logoColor=white' },
+        { name: 'Cursor', url: 'https://img.shields.io/badge/Cursor-000000?style=flat-square' },
+        { name: 'Google Jules', url: 'https://img.shields.io/badge/Google_Jules-4285F4?style=flat-square&logo=google&logoColor=white' },
+        { name: 'Lovable', url: 'https://img.shields.io/badge/Lovable-000000?style=flat-square' }
+      ]
+    },
+    {
+      category: 'Frontend',
+      items: [
+        { name: 'Angular (RxJS)', url: 'https://img.shields.io/badge/Angular_(RxJS)-DD0031?style=flat-square&logo=angular&logoColor=white' },
+        { name: 'React (Redux)', url: 'https://img.shields.io/badge/React_(Redux)-20232A?style=flat-square&logo=react&logoColor=61DAFB' },
+        { name: 'Svelte', url: 'https://img.shields.io/badge/Svelte-FF3E00?style=flat-square&logo=svelte&logoColor=white' },
+        { name: 'TypeScript', url: 'https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white' },
+        { name: 'JavaScript', url: 'https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black' },
+        { name: 'HTML5 / CSS3', url: 'https://img.shields.io/badge/HTML5_%2F_CSS3-E34F26?style=flat-square&logo=html5&logoColor=white' },
+        { name: 'Progressive Web Apps', url: 'https://img.shields.io/badge/Progressive_Web_Apps-5A0FC8?style=flat-square&logo=pwa&logoColor=white' },
+        { name: 'Three.js', url: 'https://img.shields.io/badge/Three.js-000000?style=flat-square&logo=threedotjs&logoColor=white' },
+        { name: 'UI / UX Design', url: 'https://img.shields.io/badge/UI_%2F_UX_Design-FF0055?style=flat-square&logo=figma&logoColor=white' }
+      ]
+    },
+    {
+      category: 'Backend',
+      items: [
+        { name: 'Python', url: 'https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white' },
+        { name: 'PHP', url: 'https://img.shields.io/badge/PHP-777BB4?style=flat-square&logo=php&logoColor=white' },
+        { name: 'Node.js', url: 'https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white' },
+        { name: 'Java', url: 'https://img.shields.io/badge/Java-ED8B00?style=flat-square&logo=java&logoColor=white' },
+        { name: 'C / C++', url: 'https://img.shields.io/badge/C_%2F_C%2B%2B-00599C?style=flat-square&logo=c%2B%2B&logoColor=white' },
+        { name: 'RESTful APIs', url: 'https://img.shields.io/badge/RESTful_APIs-374151?style=flat-square' },
+        { name: 'SSE', url: 'https://img.shields.io/badge/SSE-374151?style=flat-square' },
+        { name: 'PostgreSQL', url: 'https://img.shields.io/badge/PostgreSQL-316192?style=flat-square&logo=postgresql&logoColor=white' },
+        { name: 'MySQL', url: 'https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white' },
+        { name: 'NoSQL (MongoDB)', url: 'https://img.shields.io/badge/NoSQL_(MongoDB)-47A248?style=flat-square&logo=mongodb&logoColor=white' },
+        { name: 'Microservices', url: 'https://img.shields.io/badge/Microservices-374151?style=flat-square' }
+      ]
+    },
+    {
+      category: 'DevOps & Cloud',
+      items: [
+        { name: 'Git', url: 'https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white' },
+        { name: 'Azure DevOps', url: 'https://img.shields.io/badge/Azure_DevOps-0078D7?style=flat-square&logo=azuredevops&logoColor=white' },
+        { name: 'Jira', url: 'https://img.shields.io/badge/Jira-0052CC?style=flat-square&logo=jira&logoColor=white' },
+        { name: 'Confluence', url: 'https://img.shields.io/badge/Confluence-172B4D?style=flat-square&logo=confluence&logoColor=white' },
+        { name: 'CI/CD pipelines', url: 'https://img.shields.io/badge/CI_%2F_CD_Pipelines-374151?style=flat-square&logo=githubactions&logoColor=white' },
+        { name: 'SCRUM / Kanban', url: 'https://img.shields.io/badge/SCRUM_%2F_Kanban-374151?style=flat-square' },
+        { name: 'Docker (basic)', url: 'https://img.shields.io/badge/Docker_(basic)-2496ED?style=flat-square&logo=docker&logoColor=white' },
+        { name: 'Sentry', url: 'https://img.shields.io/badge/Sentry-362D59?style=flat-square&logo=sentry&logoColor=white' },
+        { name: 'New Relic', url: 'https://img.shields.io/badge/New_Relic-008C99?style=flat-square&logo=newrelic&logoColor=white' }
+      ]
+    },
+    {
+      category: 'Other',
+      items: [
+        { name: 'Cybersecurity', url: 'https://img.shields.io/badge/Cybersecurity-374151?style=flat-square' },
+        { name: 'Web Security / Auth', url: 'https://img.shields.io/badge/Web_Security_%2F_Auth-374151?style=flat-square' },
+        { name: 'IoT Ecosystems', url: 'https://img.shields.io/badge/IoT_Ecosystems-374151?style=flat-square' },
+        { name: 'Unity / VR', url: 'https://img.shields.io/badge/Unity_%2F_VR-000000?style=flat-square&logo=unity&logoColor=white' }
+      ]
+    }
   ];
+
+  activeSkills = computed(() => {
+    const active = this.activeSkillCategory();
+    const category = this.skills.find(s => s.category === active);
+    return category ? category.items : [];
+  });
 
   projects: Project[] = [
     {

@@ -138,10 +138,30 @@
         <h2 class="text-xl font-semibold flex items-center gap-2">
           🛠️ Skills
         </h2>
-        <div class="flex flex-wrap gap-2">
-          @for (skill of skills; track skill.name) {
-          <img [src]="skill.url" [alt]="skill.name" class="h-6 rounded-sm bg-gray-100" />
-          }
+        <div class="space-y-5">
+          <!-- Skill tabs -->
+          <div class="flex flex-wrap gap-2 border-b border-gray-100 pb-4">
+            @for (skillGroup of skills; track skillGroup.category) {
+            <button 
+              (click)="activeSkillCategory.set(skillGroup.category)"
+              class="px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 outline-none cursor-pointer"
+              [class]="activeSkillCategory() === skillGroup.category ? 'bg-gray-900 text-white shadow-sm' : 'bg-gray-50 text-gray-600 hover:bg-gray-100 hover:text-gray-900'"
+              >
+              {{skillGroup.category}}
+            </button>
+            }
+          </div>
+
+          <!-- Active skills -->
+          <div class="min-h-36">
+            @for (category of [activeSkillCategory()]; track category) {
+            <div class="flex flex-wrap gap-2 animate-[fadeIn_0.3s_ease-out]">
+              @for (item of activeSkills(); track item.name) {
+              <img [src]="item.url" [alt]="item.name" class="h-[22px] rounded-sm bg-gray-100 shadow-sm transition-transform hover:-translate-y-0.5" />
+              }
+            </div>
+            }
+          </div>
         </div>
       </section>
 
