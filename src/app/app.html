@@ -136,28 +136,35 @@
       <!-- Skills -->
       <section id="skills" class="space-y-6 scroll-m-20">
         <h2 class="text-xl font-semibold flex items-center gap-2">
-          🛠️ Skills
+          🛠️ Tech Stack
         </h2>
         <div class="space-y-5">
           <!-- Skill tabs -->
           <div class="flex flex-wrap gap-2 border-b border-gray-100 pb-4">
             @for (skillGroup of skills; track skillGroup.category) {
-            <button 
-              (click)="activeSkillCategory.set(skillGroup.category)"
-              class="px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 outline-none cursor-pointer"
-              [class]="activeSkillCategory() === skillGroup.category ? 'bg-gray-900 text-white shadow-sm' : 'bg-gray-50 text-gray-600 hover:bg-gray-100 hover:text-gray-900'"
-              >
+            <button (click)="activeSkillCategory.set(skillGroup.category)"
+              class="px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 outline-none cursor-pointer border border-[#e9e9e9]"
+              [class]="activeSkillCategory() === skillGroup.category ? 'bg-gray-900 text-white' : 'bg-white text-gray-500 hover:bg-gray-100'">
               {{skillGroup.category}}
             </button>
             }
           </div>
 
           <!-- Active skills -->
-          <div class="min-h-36">
+          <div class="grid grid-cols-1 grid-rows-1">
+            <!-- Invisible first category to set dynamic min-height -->
+            <!-- PLEASE NOTE: THE FIRST CATEGORY MUST BE THE ONE WITH MORE SKILLS -->
+            <div class="flex flex-wrap gap-2 invisible col-start-1 row-start-1 pointer-events-none" aria-hidden="true">
+              @for (item of skills[0].items; track item.name) {
+              <img [src]="item.url" [alt]="item.name" class="h-[22px] rounded-sm" />
+              }
+            </div>
+
             @for (category of [activeSkillCategory()]; track category) {
-            <div class="flex flex-wrap gap-2 animate-[fadeIn_0.3s_ease-out]">
+            <div class="flex flex-wrap gap-2 animate-[fadeIn_0.3s_ease-out] col-start-1 row-start-1 h-max">
               @for (item of activeSkills(); track item.name) {
-              <img [src]="item.url" [alt]="item.name" class="h-[22px] rounded-sm bg-gray-100 shadow-sm transition-transform hover:-translate-y-0.5" />
+              <img [src]="item.url" [alt]="item.name"
+                class="h-[22px] rounded-sm bg-gray-100 shadow-sm transition-transform hover:-translate-y-0.5" />
               }
             </div>
             }
