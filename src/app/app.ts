@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal, computed, Inject, PLATFORM_ID, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, computed, Inject, PLATFORM_ID, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
 interface Experience {
@@ -29,10 +29,12 @@ interface BlogPost {
   date: string;
   link: string;
   photo: string;
+  pdfLink?: string;
 }
 
 interface Extracurricular {
   title: string;
+  date?: string;
   description: string;
   photo: string;
 }
@@ -57,9 +59,14 @@ interface SkillCategory {
     '(window:resize)': 'onScroll()'
   }
 })
-export class App implements OnInit {
+export class App implements OnInit, AfterViewInit {
   activeSection = signal<string>('about');
   activeSkillCategory = signal<string>('Frontend');
+  isDownloadMenuOpen = signal<boolean>(false);
+  canScrollLeft = signal<boolean>(false);
+  canScrollRight = signal<boolean>(true);
+
+  @ViewChild('skillsContainer') skillsContainer?: ElementRef<HTMLElement>;
 
   sections = [
     { id: 'about', label: 'About' },
@@ -77,8 +84,17 @@ export class App implements OnInit {
     this.onScroll();
   }
 
+  ngAfterViewInit() {
+    // Slight delay to ensure rendering is complete on browser before checking layout bounds
+    if (isPlatformBrowser(this.platformId)) {
+      setTimeout(() => this.checkSkillsScroll(), 100);
+    }
+  }
+
   onScroll() {
     if (!isPlatformBrowser(this.platformId)) return;
+
+    this.checkSkillsScroll();
 
     let current = this.sections[0].id;
     const scrollY = window.scrollY;
@@ -107,11 +123,18 @@ export class App implements OnInit {
     }
   }
 
+  checkSkillsScroll() {
+    const el = this.skillsContainer?.nativeElement;
+    if (!el) return;
+    this.canScrollLeft.set(el.scrollLeft > 0);
+    this.canScrollRight.set(Math.ceil(el.scrollLeft + el.clientWidth) < el.scrollWidth);
+  }
+
   about = {
     name: "Alberto Boffi",
     greet: "Hi, I'm Alberto Boffi 👋",
     role: 'Computer Science Engineer',
-    description: 'I am a computer science engineer specializing in scalable full-stack applications and artificial intelligence, with a deep architectural foundation spanning computer graphics, cybersecurity and advanced algorithms.',
+    description: 'I am a computer science engineer specializing in scalable full-stack applications and artificial intelligence, with a deep architectural foundation spanning data science, computer graphics, cybersecurity and advanced algorithms.',
     photo: './assets/albertoboffi.webp'
   };
 
@@ -120,7 +143,7 @@ export class App implements OnInit {
       company: 'Connect Reply',
       role: 'Software Engineer',
       date: 'May 2024 — Present',
-      description: 'Design and implement web applications integrating connected devices across international markets, leveraging autonomous agents and LLM-driven solutions. Coordinate the full SDLC and interface with global stakeholders to deliver scalable, intelligent applications.',
+      description: 'Design and implement web applications integrating connected devices across international markets, leveraging autonomous agents and LLM-driven solutions.\nCoordinate the full SDLC and interface with global stakeholders to deliver scalable, intelligent applications.\nCultivated strong Data Science competencies to drive data-informed decision-making.',
       photo: './assets/reply.webp'
     }
   ];
@@ -155,7 +178,7 @@ export class App implements OnInit {
         { name: 'jQuery', url: 'https://img.shields.io/badge/jQuery-0769AD?style=flat-square&logo=jquery&logoColor=white' },
         { name: 'HTML5', url: 'https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white' },
         { name: 'CSS3', url: 'https://img.shields.io/badge/CSS3-663399?style=flat-square&logo=css&logoColor=white' },
-        { name: 'SCSS', url: 'https://img.shields.io/badge/SCSS-CC6699?style=flat-square&logo=sass&logoColor=white' },
+        { name: 'SASS', url: 'https://img.shields.io/badge/SCSS-CC6699?style=flat-square&logo=sass&logoColor=white' },
         { name: 'Progressive Web Apps', url: 'https://img.shields.io/badge/Progressive_Web_Apps-5A0FC8?style=flat-square&logo=pwa&logoColor=white' },
         { name: 'Three.js', url: 'https://img.shields.io/badge/Three.js-000000?style=flat-square&logo=threedotjs&logoColor=white' },
         { name: 'UI / UX', url: 'https://img.shields.io/badge/UI_%2F_UX-FF0055?style=flat-square&logo=figma&logoColor=white' }
@@ -308,7 +331,8 @@ export class App implements OnInit {
       title: 'Why I moved from REST to strictly typed RPCs',
       date: 'Feb 15, 2024',
       link: '#',
-      photo: 'https://placehold.co/200x150/f3f4f6/4b5563?text=RPC'
+      photo: 'https://placehold.co/200x150/f3f4f6/4b5563?text=RPC',
+      pdfLink: '#'
     },
     {
       title: 'Optimizing Docker builds for minimal deployments',
@@ -318,24 +342,26 @@ export class App implements OnInit {
     }
   ];
 
-
-
   extracurricular: Extracurricular[] = [
     {
-      title: 'Polimi Athletics Team',
-      description: 'Former member of the Official Athletics Team of Politecnico di Milano.',
-      photo: './assets/sport_polimi.webp'
-    },
-    {
       title: 'Competitive Football',
+      date: '2006 — 2021, 2026',
       description: 'Football career spanning 15 years, with experience up to the regional level.',
       photo: './assets/figc.webp'
+    },
+    {
+      title: 'PoliMi Athletics Team',
+      date: '2021 — 2022',
+      description: 'Former member of the Official Athletics Team of Politecnico di Milano.',
+      photo: './assets/sport_polimi.webp'
     }
   ];
 
   socialLinks = {
     email: 'mailto:albertoboffi.1999@gmail.com',
     github: 'https://github.com/albertoboffi/',
-    linkedin: 'https://www.linkedin.com/in/alberto-boffi/'
+    linkedin: 'https://www.linkedin.com/in/alberto-boffi/',
+    resume: '#',
+    cv: '#'
   };
 }
