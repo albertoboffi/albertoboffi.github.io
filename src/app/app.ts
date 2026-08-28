@@ -26,7 +26,7 @@ interface Project {
 
 interface BlogPost {
   title: string;
-  date: string;
+  description: string;
   link: string;
   photo: string;
   pdfLink?: string;
@@ -228,7 +228,7 @@ export class App implements OnInit, AfterViewInit {
         { name: 'Scikit-learn (ML)', url: 'https://img.shields.io/badge/Scikit--learn_(ML)-F7931E?style=flat-square&logo=scikitlearn&logoColor=white' },
         { name: 'Gymnasium (RL)', url: 'https://img.shields.io/badge/Gymnasium_(RL)-0081A5?style=flat-square&logo=openaigym&logoColor=white' },
         { name: 'Hugging Face', url: 'https://img.shields.io/badge/Hugging_Face-FFD21E?style=flat-square&logo=huggingface&logoColor=black' },
-        { name: 'LangChain', url: 'https://img.shields.io/badge/Lang_Chain-7FC8FF?style=flat-square&logo=langchain&logoColor=black' },
+        { name: 'LangChain', url: 'https://img.shields.io/badge/LangChain-7FC8FF?style=flat-square&logo=langchain&logoColor=black' },
         { name: 'Vector DBs', url: 'https://img.shields.io/badge/Vector_DBs-DC244C?style=flat-square&logo=qdrant&logoColor=white' },
         { name: 'MCP', url: 'https://img.shields.io/badge/MCP-191919?style=flat-square&logo=anthropic&logoColor=white' },
         { name: 'RAG', url: 'https://img.shields.io/badge/RAG-F90000?style=flat-square&logo=rag&logoColor=white' },
@@ -328,24 +328,32 @@ export class App implements OnInit, AfterViewInit {
 
   blogPosts: BlogPost[] = [
     {
-      title: 'Why I moved from REST to strictly typed RPCs',
-      date: 'Feb 15, 2024',
-      link: '#',
-      photo: 'https://placehold.co/200x150/f3f4f6/4b5563?text=RPC',
-      pdfLink: '#'
+      title: 'Progressive Web Apps: The Web\'s Answer to Native Applications',
+      description: 'Applied research to evaluate KPIs of PWAs for potential adoption in enterprise projects.',
+      link: 'https://dev.to/albertoboffi/series/43437',
+      photo: './assets/blog_pwa.webp',
+      pdfLink: './assets/papers/pwa_boffi.pdf'
     },
     {
-      title: 'Optimizing Docker builds for minimal deployments',
-      date: 'Oct 04, 2023',
-      link: '#',
-      photo: 'https://placehold.co/200x150/f3f4f6/4b5563?text=Docker'
+      title: 'From One-Time-Pad to PKI: How Real-World Encryption Protects Our Data',
+      description: 'Highly technical review of cryptographic techniques and their theoretical foundations.',
+      link: 'https://dev.to/albertoboffi/series/43198',
+      photo: './assets/blog_cryptography.webp',
+      pdfLink: './assets/papers/cryptography_boffi.pdf'
+    },
+    {
+      title: 'Move Fast, Fail Fast, Judge Fair: Why Tech Needs Outcome-Based Responsibility',
+      description: 'Comparative analysis of responsibility attribution frameworks and their impact on modern engineering teams.',
+      link: 'https://dev.to/albertoboffi/move-fast-fail-fast-judge-fair-why-tech-needs-outcome-based-responsibility-5747',
+      photo: './assets/blog_responsibility.webp',
+      pdfLink: './assets/papers/responsibility_boffi.pdf'
     }
   ];
 
   extracurricular: Extracurricular[] = [
     {
       title: 'Competitive Football',
-      date: '2006 — 2021, 2026',
+      date: '2006 — 2021, Current',
       description: 'Football career spanning 15 years, with experience up to the regional level.',
       photo: './assets/figc.webp'
     },

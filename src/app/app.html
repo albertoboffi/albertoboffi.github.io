@@ -304,13 +304,13 @@
             <div class="flex-1 space-y-1 sm:mt-1">
               <div class="flex items-start justify-between gap-4">
                 <h3 class="font-semibold text-gray-900 leading-tight">
-                  <a [href]="post.link"
-                    class="underline underline-offset-4 decoration-gray-300 group-hover:decoration-gray-900 transition-colors">
+                  <a [href]="post.link" target="_blank"
+                    class="decoration-gray-300 group-hover:decoration-gray-900 transition-colors">
                     {{post.title}}
                   </a>
                 </h3>
                 @if (post.pdfLink) {
-                <a [href]="post.pdfLink" target="_blank"
+                <a [href]="post.pdfLink" target="_blank" rel="noreferrer"
                   class="inline-flex items-center gap-1.5 text-xs font-medium text-gray-600 bg-gray-50 hover:bg-gray-100 hover:text-gray-900 px-2.5 py-1 rounded-md transition-colors shrink-0 border border-gray-200">
                   <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -322,7 +322,7 @@
                 </a>
                 }
               </div>
-              <span class="text-xs text-gray-500 block pt-1">{{post.date}}</span>
+              <span class="text-xs text-gray-500 block pt-1">{{post.description}}</span>
             </div>
           </article>
           }
