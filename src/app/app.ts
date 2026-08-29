@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal, computed, Inject, PLATFORM_ID, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, computed, inject, PLATFORM_ID, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
 interface Experience {
@@ -30,6 +30,7 @@ interface BlogPost {
   link: string;
   photo: string;
   pdfLink?: string;
+  isSeries?: boolean;
 }
 
 interface Extracurricular {
@@ -78,7 +79,7 @@ export class App implements OnInit, AfterViewInit {
     { id: 'extracurricular', label: 'Extracurricular' }
   ];
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
+  private platformId = inject(PLATFORM_ID);
 
   ngOnInit() {
     this.onScroll();
@@ -332,14 +333,16 @@ export class App implements OnInit, AfterViewInit {
       description: 'Applied research to evaluate KPIs of PWAs for potential adoption in enterprise projects.',
       link: 'https://dev.to/albertoboffi/series/43437',
       photo: './assets/blog_pwa.webp',
-      pdfLink: './assets/papers/pwa_boffi.pdf'
+      pdfLink: './assets/papers/pwa_boffi.pdf',
+      isSeries: true
     },
     {
       title: 'From One-Time-Pad to PKI: How Real-World Encryption Protects Our Data',
       description: 'Highly technical review of cryptographic techniques and their theoretical foundations.',
       link: 'https://dev.to/albertoboffi/series/43198',
       photo: './assets/blog_cryptography.webp',
-      pdfLink: './assets/papers/cryptography_boffi.pdf'
+      pdfLink: './assets/papers/cryptography_boffi.pdf',
+      isSeries: true
     },
     {
       title: 'Move Fast, Fail Fast, Judge Fair: Why Tech Needs Outcome-Based Responsibility',
