@@ -298,13 +298,13 @@
         </h2>
         <div class="grid grid-cols-1 gap-4">
           @for (post of blogPosts; track post.title) {
-          <article class="group border border-gray-100 rounded-xl overflow-hidden hover:shadow-sm transition-shadow bg-white flex flex-col">
-            <a [href]="post.link" target="_blank" class="block h-24 sm:h-28 overflow-hidden bg-gray-50 relative">
+          <article class="group border border-gray-100 rounded-xl overflow-hidden hover:shadow-sm transition-shadow bg-white flex flex-row">
+            <a [href]="post.link" target="_blank" class="w-28 sm:w-36 shrink-0 relative bg-gray-50 overflow-hidden block">
               <img [src]="post.photo" alt="{{post.title}}"
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
             </a>
-            <div class="p-4 sm:p-5 space-y-2.5 flex-1 flex flex-col">
-              <h3 class="text-base font-bold text-gray-900 leading-snug">
+            <div class="p-3.5 sm:p-5 space-y-2 flex-1 flex flex-col justify-center">
+              <h3 class="text-[15px] sm:text-base font-bold text-gray-900 leading-snug">
                 <a [href]="post.link" target="_blank" class="hover:text-gray-600 transition-colors">
                   @if (post.isSeries) {
                   <span class="inline-block relative -top-0.5 mr-1.5 rounded-full bg-indigo-50 px-2 py-0.5 text-[10px] font-bold text-indigo-700 uppercase tracking-wider ring-1 ring-inset ring-indigo-700/10">Series</span>
@@ -312,8 +312,8 @@
                   {{post.title}}
                 </a>
               </h3>
-              <p class="text-[13px] sm:text-sm text-gray-700 leading-relaxed flex-1">{{post.description}}</p>
-              <div class="flex items-center justify-between pt-1.5">
+              <p class="text-[13px] sm:text-sm text-gray-700 leading-relaxed line-clamp-2 sm:line-clamp-none">{{post.description}}</p>
+              <div class="flex items-center justify-between pt-1">
                 <a [href]="post.link" target="_blank"
                   class="inline-flex items-center gap-1.5 text-sm font-semibold text-gray-900 hover:text-gray-600 transition-colors group/link">
                   Read Article
