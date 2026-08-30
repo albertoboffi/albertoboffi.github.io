@@ -130,7 +130,8 @@
             </button>
             @if (isDownloadMenuOpen()) {
             <!-- Backdrop to close dropdown -->
-            <div class="fixed inset-0 z-40" tabindex="0" role="button" aria-label="Close menu" (click)="isDownloadMenuOpen.set(false)" (keydown.enter)="isDownloadMenuOpen.set(false)"></div>
+            <div class="fixed inset-0 z-40" tabindex="0" role="button" aria-label="Close menu"
+              (click)="isDownloadMenuOpen.set(false)" (keydown.enter)="isDownloadMenuOpen.set(false)"></div>
             <!-- Dropdown menu -->
             <div
               class="absolute right-0 mt-2 w-32 bg-white rounded-xl shadow-lg border border-gray-100 p-1 flex flex-col z-50 overflow-hidden">
@@ -298,45 +299,53 @@
         </h2>
         <div class="grid grid-cols-1 gap-4">
           @for (post of blogPosts; track post.title) {
-          <article class="group border border-gray-100 rounded-xl overflow-hidden hover:shadow-sm transition-shadow bg-white flex flex-row">
-            <a [href]="post.link" target="_blank" class="w-28 sm:w-36 shrink-0 relative bg-gray-50 overflow-hidden block">
-              <img [src]="post.photo" alt="{{post.title}}"
-                class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-            </a>
-            <div class="p-3.5 sm:p-5 space-y-2 flex-1 flex flex-col justify-center">
-              <h3 class="text-[15px] sm:text-base font-bold text-gray-900 leading-snug">
-                <a [href]="post.link" target="_blank" class="hover:text-gray-600 transition-colors">
-                  @if (post.isSeries) {
-                  <span class="inline-block relative -top-0.5 mr-1.5 rounded-full bg-indigo-50 px-2 py-0.5 text-[10px] font-bold text-indigo-700 uppercase tracking-wider ring-1 ring-inset ring-indigo-700/10">Series</span>
+          <a [href]="post.link" target="_blank" class="block no-underline color-inherit cursor-pointer">
+            <article
+              class="group border border-gray-100 rounded-xl overflow-hidden hover:shadow-sm transition-shadow bg-white flex flex-row">
+              <a [href]="post.link" target="_blank"
+                class="w-28 sm:w-36 shrink-0 relative bg-gray-50 overflow-hidden block">
+                <img [src]="post.photo" alt="{{post.title}}"
+                  class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+              </a>
+              <div class="p-3.5 sm:p-5 space-y-2 flex-1 flex flex-col justify-center">
+                <h3 class="text-[15px] sm:text-base font-bold text-gray-900 leading-snug">
+                  <a [href]="post.link" target="_blank" class="hover:text-gray-600 transition-colors">
+                    {{post.title}}
+                    @if (post.isSeries) {
+                    <span
+                      class="inline-block relative -top-0.5 mr-1.5 rounded-full bg-indigo-50 px-2 py-0.5 text-[10px] font-bold text-indigo-700 uppercase tracking-wider ring-1 ring-inset ring-indigo-700/10">Series</span>
+                    }
+                  </a>
+                </h3>
+                <p class="text-[13px] sm:text-sm text-gray-700 leading-relaxed line-clamp-2 sm:line-clamp-none">
+                  {{post.description}}</p>
+                <div class="flex items-center justify-between pt-1">
+                  <a [href]="post.link" target="_blank"
+                    class="inline-flex items-center gap-1.5 text-sm font-semibold text-gray-900 hover:text-gray-600 transition-colors group/link">
+                    {{post.isSeries ? 'Read Articles' : 'Read Article'}}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                      class="transition-transform group-hover/link:translate-x-0.5">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </a>
+                  @if (post.pdfLink) {
+                  <a [href]="post.pdfLink" target="_blank" rel="noreferrer"
+                    class="text-xs font-medium text-gray-400 hover:text-gray-600 transition-colors flex items-center gap-1 pl-[20px] pr-0 pb-0"
+                    title="Download PDF">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                      <polyline points="14 2 14 8 20 8"></polyline>
+                    </svg>
+                    PDF
+                  </a>
                   }
-                  {{post.title}}
-                </a>
-              </h3>
-              <p class="text-[13px] sm:text-sm text-gray-700 leading-relaxed line-clamp-2 sm:line-clamp-none">{{post.description}}</p>
-              <div class="flex items-center justify-between pt-1">
-                <a [href]="post.link" target="_blank"
-                  class="inline-flex items-center gap-1.5 text-sm font-semibold text-gray-900 hover:text-gray-600 transition-colors group/link">
-                  Read Article
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover/link:translate-x-0.5">
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </a>
-                @if (post.pdfLink) {
-                <a [href]="post.pdfLink" target="_blank" rel="noreferrer"
-                  class="text-xs font-medium text-gray-400 hover:text-gray-600 transition-colors flex items-center gap-1" title="Download PDF">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                    <polyline points="14 2 14 8 20 8"></polyline>
-                  </svg>
-                  PDF
-                </a>
-                }
+                </div>
               </div>
-            </div>
-          </article>
+            </article>
+          </a>
           }
         </div>
       </section>
