@@ -144,7 +144,7 @@ export class App implements OnInit, AfterViewInit {
       company: 'Connect Reply',
       role: 'Software Engineer',
       date: 'May 2024 — Present',
-      description: 'Design and implement web applications integrating connected devices across international markets, leveraging autonomous agents and LLM-driven solutions.\nCoordinate the full SDLC and interface with global stakeholders to deliver scalable, intelligent applications.\nCultivated strong Data Science competencies to drive data-informed decision-making.',
+      description: 'Joined as a hands-on software engineer on a large-scale multinational web ecosystem for connected devices, progressively becaming a key point of reference for the application’s front-end, now serving 7+ countries and ~500K users. In parallel, I’ve grown into the owner and developer of an upcoming application for the USA market, targeting 1M users.\n\n<b>Tech Scope</b>: Design and implement complex data exchange features across devices, UIs, and BE services, leveraging autonomous agents and LLM-driven solutions. Lead the full SDLC and interface with global stakeholders to deliver a reliable E2E delivery process. Cultivated data science competencies to drive data-informed decision-making.',
       photo: './assets/reply.webp'
     }
   ];

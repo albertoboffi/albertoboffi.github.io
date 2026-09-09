@@ -161,7 +161,7 @@
                 <span class="text-xs text-gray-500 shrink-0 sm:mt-0 mt-1">{{exp.date}}</span>
               </div>
               <p class="text-gray-600 font-medium pb-1">{{exp.role}}</p>
-              <p class="text-gray-700 leading-relaxed whitespace-pre-line">{{exp.description}}</p>
+              <p class="text-gray-700 leading-relaxed whitespace-pre-line" [innerHTML]="exp.description"></p>
             </div>
           </article>
           }
