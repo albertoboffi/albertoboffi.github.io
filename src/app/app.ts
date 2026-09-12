@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, signal, computed, inject, PLATFORM_ID, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 interface Experience {
   company: string;
@@ -21,6 +22,7 @@ interface Project {
   title: string;
   description: string;
   photo: string;
+  vimeoId?: string;
   links: { name: string; url: string; }[];
 }
 
@@ -80,6 +82,11 @@ export class App implements OnInit, AfterViewInit {
   ];
 
   private platformId = inject(PLATFORM_ID);
+  private sanitizer = inject(DomSanitizer);
+
+  getSafeVimeoUrl(vimeoId: string): SafeResourceUrl {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(`https://player.vimeo.com/video/${vimeoId}?background=1&autoplay=1&loop=1&byline=0&title=0`);
+  }
 
   ngOnInit() {
     this.onScroll();
@@ -317,6 +324,7 @@ export class App implements OnInit, AfterViewInit {
       title: 'VirtualRelativity: An Interactive Simulation of the Special Theory of Relativity in Virtual Reality',
       description: 'VirtualRelativity is an innovative VR solution designed to simulate the effects of Albert Einstein’s Special Theory of Relativity in a digital environment. The current implementation includes a Unity package that accurately models space contraction, time dilation, and the relativistic Doppler effect, as well as a final application that provides engaging ways to understand relativistic phenomena through real-life scenarios.\n\nThe application has also been used by Master’s students in Physical Engineering at Politecnico di Milano, and the work has started drawing citations across multiple physiscs sources, paving the way for future development in scientific education.',
       photo: 'https://placehold.co/800x400/f3f4f6/4b5563?text=Project+KV',
+      vimeoId: '927037750',
       links: [
         { name: 'GitHub ↗', url: 'https://github.com/albertoboffi/virtual-relativity' },
         { name: 'Demo ↗', url: 'https://vimeo.com/927037750' },
