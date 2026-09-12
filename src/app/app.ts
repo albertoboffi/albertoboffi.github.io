@@ -314,10 +314,17 @@ export class App implements OnInit, AfterViewInit {
 
   projects: Project[] = [
     {
-      title: 'Distributed Key-Value Store',
-      description: 'A high-performance custom distributed datastore written entirely in Rust. Handles massive concurrent connections using asynchronous custom runtimes.',
+      title: 'VirtualRelativity: An Interactive Simulation of the Special Theory of Relativity in Virtual Reality',
+      description: 'VirtualRelativity is an innovative VR solution designed to simulate the effects of Albert Einstein’s Special Theory of Relativity in a digital environment. The current implementation includes a Unity package that accurately models space contraction, time dilation, and the relativistic Doppler effect, as well as a final application that provides engaging ways to understand relativistic phenomena through real-life scenarios.\n\nThe application has also been used by Master’s students in Physical Engineering at Politecnico di Milano, and the work has started drawing citations across multiple physiscs sources, paving the way for future development in scientific education.',
       photo: 'https://placehold.co/800x400/f3f4f6/4b5563?text=Project+KV',
-      links: [{ name: 'GitHub ↗', url: '#' }, { name: 'Read Paper ↗', url: '#' }]
+      links: [
+        { name: 'GitHub ↗', url: 'https://github.com/albertoboffi/virtual-relativity' },
+        { name: 'Demo ↗', url: 'https://vimeo.com/927037750' },
+        { name: 'Thesis ↗', url: 'https://www.politesi.polimi.it/handle/10589/217718' },
+        { name: 'Article ↗', url: 'https://arxiv.org/abs/2408.01442' },
+        { name: 'Live Usage ↗', url: 'https://vimeo.com/990875783' },
+        { name: 'Learn More ↗', url: 'https://www.google.com/search?q=virtual+relativity+boffi' }
+      ]
     },
     {
       title: 'Minimal Metrics Dashboard',
@@ -329,7 +336,7 @@ export class App implements OnInit, AfterViewInit {
 
   blogPosts: BlogPost[] = [
     {
-      title: 'Progressive Web Apps: The Web\'s Answer to Native Applications',
+      title: 'Progressive Web Apps: The Web’s Answer to Native Applications',
       description: 'Applied research to evaluate KPIs of PWAs for potential adoption in enterprise projects.',
       link: 'https://dev.to/albertoboffi/series/43437',
       photo: './assets/blog_pwa.webp',

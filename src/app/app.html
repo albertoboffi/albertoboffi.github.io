@@ -277,10 +277,10 @@
               class="w-full h-48 md:h-64 object-cover rounded-2xl bg-gray-100 border border-gray-100/20" />
             <div class="space-y-2">
               <h3 class="font-bold text-gray-900">{{project.title}}</h3>
-              <p class="text-sm text-gray-700 leading-relaxed">{{project.description}}</p>
+              <p class="text-sm text-gray-700 leading-relaxed whitespace-pre-line">{{project.description}}</p>
               <div class="flex gap-4 pt-2">
                 @for (link of project.links; track link.name) {
-                <a [href]="link.url"
+                <a [href]="link.url" target="_blank"
                   class="text-sm font-medium underline underline-offset-4 decoration-gray-300 hover:decoration-gray-900 transition-colors">
                   {{link.name}}
                 </a>
