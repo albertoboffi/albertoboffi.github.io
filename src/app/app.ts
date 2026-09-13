@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal, computed, inject, PLATFORM_ID, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, computed, inject, PLATFORM_ID, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
@@ -62,12 +62,16 @@ interface SkillCategory {
     '(window:resize)': 'onScroll()'
   }
 })
-export class App implements OnInit, AfterViewInit {
+export class App implements OnInit, AfterViewInit, OnDestroy {
   activeSection = signal<string>('about');
   activeSkillCategory = signal<string>('Frontend');
   isDownloadMenuOpen = signal<boolean>(false);
   canScrollLeft = signal<boolean>(false);
   canScrollRight = signal<boolean>(true);
+  startedVideos = signal<Set<string>>(new Set());
+
+  private vimeoObserver?: IntersectionObserver;
+  private safeUrls = new Map<string, SafeResourceUrl>();
 
   @ViewChild('skillsContainer') skillsContainer?: ElementRef<HTMLElement>;
 
@@ -85,7 +89,19 @@ export class App implements OnInit, AfterViewInit {
   private sanitizer = inject(DomSanitizer);
 
   getSafeVimeoUrl(vimeoId: string): SafeResourceUrl {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(`https://player.vimeo.com/video/${vimeoId}?background=1&autoplay=1&loop=1&byline=0&title=0`);
+    if (!this.safeUrls.has(vimeoId)) {
+      this.safeUrls.set(
+        vimeoId,
+        this.sanitizer.bypassSecurityTrustResourceUrl(
+          `https://player.vimeo.com/video/${vimeoId}?autoplay=1&muted=1&loop=1&controls=0&autopause=0&byline=0&title=0&portrait=0&dnt=1&playsinline=1`
+        )
+      );
+    }
+    return this.safeUrls.get(vimeoId)!;
+  }
+
+  isVimeoStarted(vimeoId?: string): boolean {
+    return !!vimeoId && this.startedVideos().has(vimeoId);
   }
 
   ngOnInit() {
@@ -95,8 +111,42 @@ export class App implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     // Slight delay to ensure rendering is complete on browser before checking layout bounds
     if (isPlatformBrowser(this.platformId)) {
-      setTimeout(() => this.checkSkillsScroll(), 100);
+      setTimeout(() => {
+        this.checkSkillsScroll();
+        this.initVimeoObserver();
+      }, 100);
     }
+  }
+
+  ngOnDestroy() {
+    this.vimeoObserver?.disconnect();
+  }
+
+  private initVimeoObserver() {
+    if (typeof IntersectionObserver === 'undefined') {
+      const allIds = new Set(this.projects.filter(p => p.vimeoId).map(p => p.vimeoId!));
+      this.startedVideos.set(allIds);
+      return;
+    }
+
+    this.vimeoObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const vimeoId = (entry.target as HTMLElement).dataset['vimeoId'];
+          if (vimeoId) {
+            this.startedVideos.update(set => {
+              const next = new Set(set);
+              next.add(vimeoId);
+              return next;
+            });
+            this.vimeoObserver?.unobserve(entry.target);
+          }
+        }
+      });
+    }, { rootMargin: '150px' });
+
+    const elements = document.querySelectorAll('[data-vimeo-id]');
+    elements.forEach(el => this.vimeoObserver?.observe(el));
   }
 
   onScroll() {
