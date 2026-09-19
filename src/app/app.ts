@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, signal, computed, inject, PLATFORM_ID, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, computed, inject, PLATFORM_ID, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 interface Experience {
   company: string;
@@ -21,8 +20,8 @@ interface Education {
 interface Project {
   title: string;
   description: string;
-  photo: string;
-  vimeoId?: string;
+  coverUrl: string;
+  isVideo?: boolean;
   links: { name: string; url: string; }[];
 }
 
@@ -62,16 +61,12 @@ interface SkillCategory {
     '(window:resize)': 'onScroll()'
   }
 })
-export class App implements OnInit, AfterViewInit, OnDestroy {
+export class App implements OnInit, AfterViewInit {
   activeSection = signal<string>('about');
   activeSkillCategory = signal<string>('Frontend');
   isDownloadMenuOpen = signal<boolean>(false);
   canScrollLeft = signal<boolean>(false);
   canScrollRight = signal<boolean>(true);
-  startedVideos = signal<Set<string>>(new Set());
-
-  private vimeoObserver?: IntersectionObserver;
-  private safeUrls = new Map<string, SafeResourceUrl>();
 
   @ViewChild('skillsContainer') skillsContainer?: ElementRef<HTMLElement>;
 
@@ -86,23 +81,6 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
   ];
 
   private platformId = inject(PLATFORM_ID);
-  private sanitizer = inject(DomSanitizer);
-
-  getSafeVimeoUrl(vimeoId: string): SafeResourceUrl {
-    if (!this.safeUrls.has(vimeoId)) {
-      this.safeUrls.set(
-        vimeoId,
-        this.sanitizer.bypassSecurityTrustResourceUrl(
-          `https://player.vimeo.com/video/${vimeoId}?autoplay=1&muted=1&loop=1&controls=0&autopause=0&byline=0&title=0&portrait=0&dnt=1&playsinline=1`
-        )
-      );
-    }
-    return this.safeUrls.get(vimeoId)!;
-  }
-
-  isVimeoStarted(vimeoId?: string): boolean {
-    return !!vimeoId && this.startedVideos().has(vimeoId);
-  }
 
   ngOnInit() {
     this.onScroll();
@@ -111,42 +89,8 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     // Slight delay to ensure rendering is complete on browser before checking layout bounds
     if (isPlatformBrowser(this.platformId)) {
-      setTimeout(() => {
-        this.checkSkillsScroll();
-        this.initVimeoObserver();
-      }, 100);
+      setTimeout(() => this.checkSkillsScroll(), 100);
     }
-  }
-
-  ngOnDestroy() {
-    this.vimeoObserver?.disconnect();
-  }
-
-  private initVimeoObserver() {
-    if (typeof IntersectionObserver === 'undefined') {
-      const allIds = new Set(this.projects.filter(p => p.vimeoId).map(p => p.vimeoId!));
-      this.startedVideos.set(allIds);
-      return;
-    }
-
-    this.vimeoObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const vimeoId = (entry.target as HTMLElement).dataset['vimeoId'];
-          if (vimeoId) {
-            this.startedVideos.update(set => {
-              const next = new Set(set);
-              next.add(vimeoId);
-              return next;
-            });
-            this.vimeoObserver?.unobserve(entry.target);
-          }
-        }
-      });
-    }, { rootMargin: '150px' });
-
-    const elements = document.querySelectorAll('[data-vimeo-id]');
-    elements.forEach(el => this.vimeoObserver?.observe(el));
   }
 
   onScroll() {
@@ -199,7 +143,7 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
   workExperience: Experience[] = [
     {
       company: 'Connect Reply',
-      role: 'Software Engineer',
+      role: 'Software Engineer • Tech Lead',
       date: 'May 2024 — Present',
       description: 'Joined as a hands-on software engineer on a large-scale multinational web ecosystem for connected devices, progressively becaming a key point of reference for the application’s front-end, now serving 7+ countries and ~500K users. In parallel, I’ve grown into the owner and developer of an upcoming application for the USA market, targeting 1M users.\n\n<b>Tech Scope</b>: Design and implement complex data exchange features across devices, UIs, and BE services, leveraging autonomous agents and LLM-driven solutions. Lead the full SDLC and interface with global stakeholders to deliver a reliable E2E delivery process. Cultivated data science competencies to drive data-informed decision-making.',
       photo: './assets/reply.webp'
@@ -372,24 +316,36 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
   projects: Project[] = [
     {
       title: 'VirtualRelativity: An Interactive Simulation of the Special Theory of Relativity in Virtual Reality',
-      description: 'VirtualRelativity is an innovative VR solution designed to simulate the effects of Albert Einstein’s Special Theory of Relativity in a digital environment. The current implementation includes a Unity package that accurately models space contraction, time dilation, and the relativistic Doppler effect, as well as a final application that provides engaging ways to understand relativistic phenomena through real-life scenarios.\n\nThe application has also been used by Master’s students in Physical Engineering at Politecnico di Milano, and the work has started drawing citations across multiple physiscs sources, paving the way for future development in scientific education.',
-      photo: 'https://placehold.co/800x400/f3f4f6/4b5563?text=Project+KV',
-      vimeoId: '927037750',
+      description: 'VirtualRelativity is an innovative VR solution designed to simulate the effects of Einstein’s Special Theory of Relativity in a digital environment. The current implementation includes a Unity package that accurately models space contraction, time dilation, and the relativistic Doppler effect, as well as a final application that provides engaging ways to understand relativistic phenomena through real-life scenarios.\n\nThe application has also been used by Master’s students in Physical Engineering at Politecnico di Milano, and the work has started drawing citations across multiple physiscs sources, paving the way for future development in scientific education.',
+      coverUrl: './assets/projects_video/virtualrelativity.mp4',
+      isVideo: true,
       links: [
         { name: 'GitHub ↗', url: 'https://github.com/albertoboffi/virtual-relativity' },
         { name: 'Demo ↗', url: 'https://vimeo.com/927037750' },
+        { name: 'Live Usage ↗', url: 'https://vimeo.com/990875783' },
         { name: 'Thesis ↗', url: 'https://www.politesi.polimi.it/handle/10589/217718' },
         { name: 'Article ↗', url: 'https://arxiv.org/abs/2408.01442' },
-        { name: 'Live Usage ↗', url: 'https://vimeo.com/990875783' },
         { name: 'Learn More ↗', url: 'https://www.google.com/search?q=virtual+relativity+boffi' }
       ]
     },
     {
-      title: 'Minimal Metrics Dashboard',
-      description: 'Real-time telemetry and server metrics aggregator utilizing WebSockets and Go. Clean, minimal UI rendered via Tailwind and modern Angular.',
-      photo: 'https://placehold.co/800x400/f3f4f6/4b5563?text=Metrics+Dash',
-      links: [{ name: 'GitHub ↗', url: '#' }, { name: 'Live Demo ↗', url: '#' }]
-    }
+      title: 'Fluo: Website Composer',
+      description: 'Fluo was a drag-and-drop tool for website creation that I developed as a high-school thesis project. It was designed as an All-in-One Workspace targeting non-technical users, whose main features included multi-site hosting, cloud storage, a file system for website and page management, object manipulation through snapping guides, real-time auto-saving, comprehensive text formatting, and position and scale control of images, text, and geometric shapes, both through numerical input and manual manipulation.',
+      coverUrl: './assets/projects_video/fluo.mp4',
+      isVideo: true,
+      links: [
+        { name: 'Demo ↗', url: 'https://vimeo.com/900597283' }
+      ]
+    },
+    {
+      title: 'Friscool: Note Sharing Platform',
+      description: 'Friscool was a web application that I developed during my first year of university, in order to enable students to share and access lecture notes across courses. The aim was to promote an exclusive way to collaborate and exchange knowledge within the academic community.',
+      coverUrl: './assets/projects_video/friscool.mp4',
+      isVideo: true,
+      links: [
+        { name: 'Demo ↗', url: 'https://vimeo.com/895625232' }
+      ]
+    },
   ];
 
   blogPosts: BlogPost[] = [

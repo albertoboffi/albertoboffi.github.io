@@ -268,20 +268,18 @@
       <!-- Projects -->
       <section id="projects" class="space-y-6 scroll-m-20">
         <h2 class="text-xl font-semibold flex items-center gap-2">
-          💻 Projects
+          💻 Personal Projects
         </h2>
         <div class="space-y-10">
           @for (project of projects; track project.title) {
           <article class="space-y-4">
-            @if (project.vimeoId) {
+            @if (project.isVideo) {
             <div class="relative w-full h-48 md:h-64 rounded-2xl bg-gray-100 border border-gray-100/20 overflow-hidden">
-              <iframe [src]="getSafeVimeoUrl(project.vimeoId)"
-                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full min-h-full aspect-square pointer-events-none"
-                frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
-              </iframe>
+              <video [src]="project.coverUrl" autoplay loop [muted]="true" playsinline
+                class="w-full h-full object-cover"></video>
             </div>
             } @else {
-            <img [src]="project.photo" alt="{{project.title}}"
+            <img [src]="project.coverUrl" alt="{{project.title}}"
               class="w-full h-48 md:h-64 object-cover rounded-2xl bg-gray-100 border border-gray-100/20" />
             }
             <div class="space-y-2">
