@@ -25,6 +25,14 @@ interface Project {
   links: { name: string; url: string; }[];
 }
 
+interface ProjectCategory {
+  title: string;
+  badge: string;
+  status: 'live' | 'in_progress' | 'deprecated';
+  projects: Project[];
+  placeholder?: string;
+}
+
 interface BlogPost {
   title: string;
   description: string;
@@ -347,40 +355,61 @@ export class App implements OnInit, AfterViewInit {
     return category ? category.items : [];
   });
 
-  projects: Project[] = [
+  projectCategories: ProjectCategory[] = [
     {
-      title: 'VirtualRelativity: An Interactive Simulation of the Special Theory of Relativity in Virtual Reality',
-      description: 'VirtualRelativity is an innovative VR solution designed to simulate the effects of Einstein’s Special Theory of Relativity in a digital environment. The current implementation includes a Unity package that accurately models space contraction, time dilation, and the relativistic Doppler effect, as well as a final application that provides engaging ways to understand relativistic phenomena through real-life scenarios.\n\nThe application has also been used by Master’s students in Physical Engineering at Politecnico di Milano, and the work has started drawing citations across multiple physiscs sources, paving the way for future development in scientific education.',
-      coverUrl: './assets/projects_video/virtualrelativity.mp4',
-      videoUrl: 'https://vimeo.com/927037750',
-      links: [
-        { name: 'GitHub ↗', url: 'https://github.com/albertoboffi/virtual-relativity' },
-        { name: 'Website ↗', url: 'https://virtual-relativity.netsons.org/' },
-        { name: 'Demo ↗', url: 'https://vimeo.com/927037750' },
-        { name: 'Live Usage ↗', url: 'https://vimeo.com/990875783' },
-        { name: 'Thesis ↗', url: 'https://www.politesi.polimi.it/handle/10589/217718' },
-        { name: 'Article ↗', url: 'https://arxiv.org/abs/2408.01442' },
-        { name: 'Learn More ↗', url: 'https://www.google.com/search?q=virtual+relativity+boffi' }
+      title: 'Live',
+      badge: 'Active',
+      status: 'live',
+      projects: [
+        {
+          title: 'VirtualRelativity: An Interactive Simulation of the Special Theory of Relativity in Virtual Reality',
+          description: 'VirtualRelativity is an innovative VR solution designed to simulate the effects of Einstein’s Special Theory of Relativity in a digital environment. The current implementation includes a Unity package that accurately models space contraction, time dilation, and the relativistic Doppler effect, as well as a final application that provides engaging ways to understand relativistic phenomena through real-life scenarios.\n\nThe application has also been used by Master’s students in Physical Engineering at Politecnico di Milano, and the work has started drawing citations across multiple physiscs sources, paving the way for future development in scientific education.',
+          coverUrl: './assets/projects_video/virtualrelativity.mp4',
+          videoUrl: 'https://vimeo.com/927037750',
+          links: [
+            { name: 'GitHub ↗', url: 'https://github.com/albertoboffi/virtual-relativity' },
+            { name: 'Website ↗', url: 'https://virtual-relativity.netsons.org/' },
+            { name: 'Demo ↗', url: 'https://vimeo.com/927037750' },
+            { name: 'Live Usage ↗', url: 'https://vimeo.com/990875783' },
+            { name: 'Thesis ↗', url: 'https://www.politesi.polimi.it/handle/10589/217718' },
+            { name: 'Article ↗', url: 'https://arxiv.org/abs/2408.01442' },
+            { name: 'Learn More ↗', url: 'https://www.google.com/search?q=virtual+relativity+boffi' }
+          ]
+        }
       ]
     },
     {
-      title: 'Fluo: Website Composer',
-      description: 'Fluo was a drag-and-drop tool for website creation that I developed as a high-school thesis project. It was designed as an All-in-One Workspace targeting non-technical users, whose main features included multi-site hosting, cloud storage, a file system for website and page management, object manipulation through snapping guides, real-time auto-saving, comprehensive text formatting, and position and scale control of images, text, and geometric shapes, both through numerical input and manual manipulation.',
-      coverUrl: './assets/projects_video/fluo.mp4',
-      videoUrl: 'https://vimeo.com/900597283',
-      links: [
-        { name: 'Demo ↗', url: 'https://vimeo.com/900597283' }
-      ]
+      title: 'In Progress',
+      badge: 'Upcoming',
+      status: 'in_progress',
+      placeholder: 'I will add it later',
+      projects: []
     },
     {
-      title: 'Friscool: Note Sharing Platform',
-      description: 'Friscool was a web application that I developed during my first year of university, in order to enable students to share and access lecture notes across courses. The aim was to promote an exclusive way to collaborate and exchange knowledge within the academic community.',
-      coverUrl: './assets/projects_video/friscool.mp4',
-      videoUrl: 'https://vimeo.com/895625232',
-      links: [
-        { name: 'Demo ↗', url: 'https://vimeo.com/895625232' }
+      title: 'Deprecated',
+      badge: 'Archived',
+      status: 'deprecated',
+      projects: [
+        {
+          title: 'Fluo: Website Composer',
+          description: 'Fluo was a drag-and-drop tool for website creation that I developed as a high-school thesis project. It was designed as an All-in-One Workspace targeting non-technical users, whose main features included multi-site hosting, cloud storage, a file system for website and page management, object manipulation through snapping guides, real-time auto-saving, comprehensive text formatting, and position and scale control of images, text, and geometric shapes, both through numerical input and manual manipulation.',
+          coverUrl: './assets/projects_video/fluo.mp4',
+          videoUrl: 'https://vimeo.com/900597283',
+          links: [
+            { name: 'Demo ↗', url: 'https://vimeo.com/900597283' }
+          ]
+        },
+        {
+          title: 'Friscool: Note Sharing Platform',
+          description: 'Friscool was a web application that I developed during my first year of university, in order to enable students to share and access lecture notes across courses. The aim was to promote an exclusive way to collaborate and exchange knowledge within the academic community.',
+          coverUrl: './assets/projects_video/friscool.mp4',
+          videoUrl: 'https://vimeo.com/895625232',
+          links: [
+            { name: 'Demo ↗', url: 'https://vimeo.com/895625232' }
+          ]
+        }
       ]
-    },
+    }
   ];
 
   blogPosts: BlogPost[] = [
