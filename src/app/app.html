@@ -276,9 +276,23 @@
             @if (project?.videoUrl) {
             <div
               class="relative w-full h-48 md:h-64 rounded-2xl bg-gray-100 border border-gray-100/20 overflow-hidden cursor-pointer"
+              tabindex="0"
+              role="button"
+              [attr.aria-label]="'Watch video for ' + project.title"
+              (keydown.enter)="openUrl(project.videoUrl ?? '')"
               (click)="openUrl(project.videoUrl ?? '');">
-              <video [src]="project.coverUrl" autoplay loop [muted]="true" playsinline
-                class="w-full h-full object-cover"></video>
+              @if (isVideoLoading(project.title)) {
+              <div class="absolute inset-0 flex items-center justify-center bg-gray-100 z-10 transition-opacity duration-300">
+                <div class="w-6 h-6 rounded-full border-2 border-gray-300 border-t-gray-800 animate-spin"></div>
+              </div>
+              }
+              <video [src]="project.coverUrl" autoplay loop [muted]="true" playsinline preload="auto"
+                (loadeddata)="onVideoLoaded(project.title)"
+                (canplay)="onVideoLoaded(project.title)"
+                (playing)="onVideoLoaded(project.title)"
+                class="w-full h-full object-cover transition-opacity duration-300"
+                [class.opacity-0]="isVideoLoading(project.title)"
+                [class.opacity-100]="!isVideoLoading(project.title)"></video>
             </div>
             } @else {
             <img [src]="project.coverUrl" alt="{{project.title}}"
@@ -287,44 +301,60 @@
             <div class="space-y-2">
               <h3 class="font-bold text-gray-900">{{project.title}}</h3>
               <p class="text-sm text-gray-700 leading-relaxed whitespace-pre-line">{{project.description}}</p>
-              <div class="flex flex-wrap gap-2.5 pt-2.5">
-                @for (link of project.links; track link.name) {
-                <a [href]="link.url" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ring-1 ring-inset
-                  {{ link.name.includes('GitHub') ? 'bg-gray-900 text-white ring-gray-900 hover:bg-gray-800' :
-                     link.name.includes('Demo') || link.name.includes('Live') ? 'bg-indigo-50 text-indigo-700 ring-indigo-700/10 hover:bg-indigo-100' :
-                     link.name.includes('Article') || link.name.includes('Thesis') ? 'bg-emerald-50 text-emerald-700 ring-emerald-600/10 hover:bg-emerald-100' :
-                     'bg-white text-gray-700 ring-gray-200 hover:bg-gray-50' }}">
+              <div class="space-y-2.5 pt-2.5">
+                @for (row of getProjectLinkRows(project.links); track $index) {
+                <div class="flex flex-wrap md:grid gap-2.5"
+                  [class.md:grid-cols-1]="row.length === 1"
+                  [class.md:grid-cols-2]="row.length === 2"
+                  [class.md:grid-cols-3]="row.length === 3"
+                  [class.md:grid-cols-4]="row.length === 4">
+                  @for (link of row; track link.name) {
+                  <a [href]="link.url" target="_blank" class="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ring-1 ring-inset w-auto md:w-full
+                    {{ link.name.includes('GitHub') ? 'bg-gray-900 text-white ring-gray-900 hover:bg-gray-800' :
+                       link.name.includes('Website') ? 'bg-sky-50 text-sky-700 ring-sky-700/15 hover:bg-sky-100' :
+                       link.name.includes('Demo') || link.name.includes('Live') ? 'bg-indigo-50 text-indigo-700 ring-indigo-700/10 hover:bg-indigo-100' :
+                       link.name.includes('Article') || link.name.includes('Thesis') ? 'bg-emerald-50 text-emerald-700 ring-emerald-600/10 hover:bg-emerald-100' :
+                       'bg-white text-gray-700 ring-gray-200 hover:bg-gray-50' }}">
 
-                  @if (link.name.includes('GitHub')) {
-                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path fill-rule="evenodd"
-                      d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                      clip-rule="evenodd"></path>
-                  </svg>
-                  } @else if (link.name.includes('Demo') || link.name.includes('Live')) {
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                  </svg>
-                  } @else if (link.name.includes('Article') || link.name.includes('Thesis')) {
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                    <polyline points="14 2 14 8 20 8"></polyline>
-                    <line x1="16" y1="13" x2="8" y2="13"></line>
-                    <line x1="16" y1="17" x2="8" y2="17"></line>
-                    <polyline points="10 9 9 9 8 9"></polyline>
-                  </svg>
-                  } @else {
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                    <polyline points="15 3 21 3 21 9"></polyline>
-                    <line x1="10" y1="14" x2="21" y2="3"></line>
-                  </svg>
+                    @if (link.name.includes('GitHub')) {
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path fill-rule="evenodd"
+                        d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                        clip-rule="evenodd"></path>
+                    </svg>
+                    } @else if (link.name.includes('Website')) {
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="2" y1="12" x2="22" y2="12"></line>
+                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    </svg>
+                    } @else if (link.name.includes('Demo') || link.name.includes('Live')) {
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                    } @else if (link.name.includes('Article') || link.name.includes('Thesis')) {
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                      <polyline points="14 2 14 8 20 8"></polyline>
+                      <line x1="16" y1="13" x2="8" y2="13"></line>
+                      <line x1="16" y1="17" x2="8" y2="17"></line>
+                      <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    } @else {
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                    }
+                    {{link.name.replace(' ↗', '')}}
+                  </a>
                   }
-                  {{link.name.replace(' ↗', '')}}
-                </a>
+                </div>
                 }
               </div>
             </div>
@@ -388,6 +418,23 @@
             </article>
           </a>
           }
+        </div>
+
+        <!-- Check out all articles button -->
+        <div class="pt-1">
+          <a href="https://dev.to/albertoboffi" target="_blank" rel="noopener noreferrer"
+            class="group flex items-center justify-center gap-2.5 w-full py-3 px-4 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 hover:border-gray-300 text-sm font-medium text-gray-900 transition-all duration-200 shadow-xs hover:shadow-sm">
+            <svg class="w-5 h-5 text-gray-800 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M7.42 10.05c-.18-.16-.46-.23-.84-.23H5.34v4.36h1.24c.38 0 .66-.07.84-.22.19-.16.29-.42.29-.8v-2.32c0-.37-.1-.63-.29-.79zm5.34.82v2.73h-1.5v-2.73h1.5zM21 4H3C2.45 4 2 4.45 2 5v14c0 .55.45 1 1 1h18c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zM8.84 13.91c-.34.34-.84.51-1.48.51H4.15V9.58h3.21c.64 0 1.14.17 1.48.51.34.34.52.85.52 1.52v.78c0 .67-.18 1.18-.52 1.52zm5.12-.52c0 .32-.07.6-.21.82-.14.22-.35.39-.62.5-.27.11-.6.17-.98.17h-2.7V9.58h2.7c.38 0 .71.06.98.17.27.11.48.28.62.5.14.22.21.5.21.82v2.32zm5.89-3.03h-2.14v4.47h-1.19V9.58h3.33v.78z"/>
+            </svg>
+            <span>Check out all my articles</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="transition-transform group-hover:translate-x-1 text-gray-500">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
         </div>
       </section>
 

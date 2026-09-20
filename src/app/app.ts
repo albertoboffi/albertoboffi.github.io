@@ -129,6 +129,36 @@ export class App implements OnInit, AfterViewInit {
     window.open(url, '_blank', 'noopener,noreferrer');
   }
 
+  videoLoadingState = signal<Record<string, 'loading' | 'loaded'>>({});
+
+  isVideoLoading(title: string): boolean {
+    return this.videoLoadingState()[title] !== 'loaded';
+  }
+
+  onVideoLoaded(title: string) {
+    this.videoLoadingState.update(prev => ({ ...prev, [title]: 'loaded' }));
+  }
+
+  getProjectLinkRows(links: { name: string; url: string }[]): { name: string; url: string }[][] {
+    if (!links || links.length === 0) return [];
+    const n = links.length;
+    if (n <= 4) {
+      return [links];
+    }
+    const linesCount = Math.ceil(n / 4);
+    const rows: { name: string; url: string }[][] = [];
+    const base = Math.floor(n / linesCount);
+    const remainder = n % linesCount;
+
+    let currentIndex = 0;
+    for (let i = 0; i < linesCount; i++) {
+      const count = base + (i < remainder ? 1 : 0);
+      rows.push(links.slice(currentIndex, currentIndex + count));
+      currentIndex += count;
+    }
+    return rows;
+  }
+
   checkSkillsScroll() {
     const el = this.skillsContainer?.nativeElement;
     if (!el) return;
@@ -325,6 +355,7 @@ export class App implements OnInit, AfterViewInit {
       videoUrl: 'https://vimeo.com/927037750',
       links: [
         { name: 'GitHub ↗', url: 'https://github.com/albertoboffi/virtual-relativity' },
+        { name: 'Website ↗', url: 'https://virtual-relativity.netsons.org/' },
         { name: 'Demo ↗', url: 'https://vimeo.com/927037750' },
         { name: 'Live Usage ↗', url: 'https://vimeo.com/990875783' },
         { name: 'Thesis ↗', url: 'https://www.politesi.polimi.it/handle/10589/217718' },
