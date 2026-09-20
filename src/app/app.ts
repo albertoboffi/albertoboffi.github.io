@@ -21,7 +21,7 @@ interface Project {
   title: string;
   description: string;
   coverUrl: string;
-  isVideo?: boolean;
+  videoUrl?: string;
   links: { name: string; url: string; }[];
 }
 
@@ -123,6 +123,10 @@ export class App implements OnInit, AfterViewInit {
     if (this.activeSection() !== current) {
       this.activeSection.set(current);
     }
+  }
+
+  openUrl(url: string) {
+    window.open(url, '_blank', 'noopener,noreferrer');
   }
 
   checkSkillsScroll() {
@@ -318,7 +322,7 @@ export class App implements OnInit, AfterViewInit {
       title: 'VirtualRelativity: An Interactive Simulation of the Special Theory of Relativity in Virtual Reality',
       description: 'VirtualRelativity is an innovative VR solution designed to simulate the effects of Einstein’s Special Theory of Relativity in a digital environment. The current implementation includes a Unity package that accurately models space contraction, time dilation, and the relativistic Doppler effect, as well as a final application that provides engaging ways to understand relativistic phenomena through real-life scenarios.\n\nThe application has also been used by Master’s students in Physical Engineering at Politecnico di Milano, and the work has started drawing citations across multiple physiscs sources, paving the way for future development in scientific education.',
       coverUrl: './assets/projects_video/virtualrelativity.mp4',
-      isVideo: true,
+      videoUrl: 'https://vimeo.com/927037750',
       links: [
         { name: 'GitHub ↗', url: 'https://github.com/albertoboffi/virtual-relativity' },
         { name: 'Demo ↗', url: 'https://vimeo.com/927037750' },
@@ -332,7 +336,7 @@ export class App implements OnInit, AfterViewInit {
       title: 'Fluo: Website Composer',
       description: 'Fluo was a drag-and-drop tool for website creation that I developed as a high-school thesis project. It was designed as an All-in-One Workspace targeting non-technical users, whose main features included multi-site hosting, cloud storage, a file system for website and page management, object manipulation through snapping guides, real-time auto-saving, comprehensive text formatting, and position and scale control of images, text, and geometric shapes, both through numerical input and manual manipulation.',
       coverUrl: './assets/projects_video/fluo.mp4',
-      isVideo: true,
+      videoUrl: 'https://vimeo.com/900597283',
       links: [
         { name: 'Demo ↗', url: 'https://vimeo.com/900597283' }
       ]
@@ -341,7 +345,7 @@ export class App implements OnInit, AfterViewInit {
       title: 'Friscool: Note Sharing Platform',
       description: 'Friscool was a web application that I developed during my first year of university, in order to enable students to share and access lecture notes across courses. The aim was to promote an exclusive way to collaborate and exchange knowledge within the academic community.',
       coverUrl: './assets/projects_video/friscool.mp4',
-      isVideo: true,
+      videoUrl: 'https://vimeo.com/895625232',
       links: [
         { name: 'Demo ↗', url: 'https://vimeo.com/895625232' }
       ]

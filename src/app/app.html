@@ -273,8 +273,10 @@
         <div class="space-y-10">
           @for (project of projects; track project.title) {
           <article class="space-y-4">
-            @if (project.isVideo) {
-            <div class="relative w-full h-48 md:h-64 rounded-2xl bg-gray-100 border border-gray-100/20 overflow-hidden">
+            @if (project?.videoUrl) {
+            <div
+              class="relative w-full h-48 md:h-64 rounded-2xl bg-gray-100 border border-gray-100/20 overflow-hidden cursor-pointer"
+              (click)="openUrl(project.videoUrl ?? '');">
               <video [src]="project.coverUrl" autoplay loop [muted]="true" playsinline
                 class="w-full h-full object-cover"></video>
             </div>
