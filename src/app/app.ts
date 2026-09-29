@@ -30,7 +30,6 @@ interface ProjectCategory {
   badge: string;
   status: 'live' | 'in_progress' | 'deprecated';
   projects: Project[];
-  placeholder?: string;
 }
 
 interface BlogPost {
@@ -321,6 +320,19 @@ export class App implements OnInit, AfterViewInit {
       ]
     },
     {
+      category: 'Mathematics',
+      items: [
+        { name: 'Algorithms & Data Structures', url: 'https://img.shields.io/badge/Algorithms_%26_Data Structures-FFA116?style=flat-square&logo=leetcode&logoColor=white' },
+        { name: 'Operations Research', url: 'https://img.shields.io/badge/Operations_Research-F37626?style=flat-square&logo=jupyter&logoColor=white' },
+        { name: 'Formal Logic', url: 'https://img.shields.io/badge/Formal_Logic-E6A100?style=flat-square&logo=formalogic&logoColor=white' },
+        { name: 'Theoretical Computer Science', url: 'https://img.shields.io/badge/Theoretical_Computer_Science-3F51B5?style=flat-square&logo=lean&logoColor=white' },
+        { name: 'Discrete Mathematics', url: 'https://img.shields.io/badge/Discrete_Mathematics-DD1100?style=flat-square&logo=wolfram&logoColor=white' },
+        { name: 'Algebra', url: 'https://img.shields.io/badge/Algebra-013243?style=flat-square&logo=numpy&logoColor=white' },
+        { name: 'Physics', url: 'https://img.shields.io/badge/Physics-15559A?style=flat-square&logo=nasa&logoColor=white' },
+        { name: 'Calculus', url: 'https://img.shields.io/badge/Calculus-008080?style=flat-square&logo=latex&logoColor=white' }
+      ]
+    },
+    {
       category: 'Media',
       items: [
         //{ name: 'Computer Graphics', url: 'https://img.shields.io/badge/Computer_Graphics-000000?style=flat-square&logo=threedotjs&logoColor=white' },
@@ -332,19 +344,6 @@ export class App implements OnInit, AfterViewInit {
         { name: 'Video Editing', url: 'https://img.shields.io/badge/Video_Editing-233A51?style=flat-square&logo=davinciresolve&logoColor=white' },
         { name: 'Google Stitch', url: 'https://img.shields.io/badge/Google_Stitch-EBA4E9?style=flat-square&logo=google&logoColor=black' },
         { name: 'Google Pomelli', url: 'https://img.shields.io/badge/Google_Pomelli-3B4609?style=flat-square&logo=google&logoColor=white' }
-      ]
-    },
-    {
-      category: 'Mathematics',
-      items: [
-        { name: 'Algorithms & Data Structures', url: 'https://img.shields.io/badge/Algorithms_%26_Data Structures-FFA116?style=flat-square&logo=leetcode&logoColor=white' },
-        { name: 'Operations Research', url: 'https://img.shields.io/badge/Operations_Research-F37626?style=flat-square&logo=jupyter&logoColor=white' },
-        { name: 'Formal Logic', url: 'https://img.shields.io/badge/Formal_Logic-E6A100?style=flat-square&logo=formalogic&logoColor=white' },
-        { name: 'Theoretical Computer Science', url: 'https://img.shields.io/badge/Theoretical_Computer_Science-3F51B5?style=flat-square&logo=lean&logoColor=white' },
-        { name: 'Discrete Mathematics', url: 'https://img.shields.io/badge/Discrete_Mathematics-DD1100?style=flat-square&logo=wolfram&logoColor=white' },
-        { name: 'Algebra', url: 'https://img.shields.io/badge/Algebra-013243?style=flat-square&logo=numpy&logoColor=white' },
-        { name: 'Physics', url: 'https://img.shields.io/badge/Physics-15559A?style=flat-square&logo=nasa&logoColor=white' },
-        { name: 'Calculus', url: 'https://img.shields.io/badge/Calculus-008080?style=flat-square&logo=latex&logoColor=white' }
       ]
     }
   ];
@@ -370,7 +369,7 @@ export class App implements OnInit, AfterViewInit {
             { name: 'GitHub ↗', url: 'https://github.com/albertoboffi/virtual-relativity' },
             { name: 'Website ↗', url: 'https://virtual-relativity.netsons.org/' },
             { name: 'Demo ↗', url: 'https://vimeo.com/927037750' },
-            { name: 'Live Usage ↗', url: 'https://vimeo.com/990875783' },
+            { name: 'Use Case ↗', url: 'https://vimeo.com/990875783' },
             { name: 'Thesis ↗', url: 'https://www.politesi.polimi.it/handle/10589/217718' },
             { name: 'Article ↗', url: 'https://arxiv.org/abs/2408.01442' },
             { name: 'Learn More ↗', url: 'https://www.google.com/search?q=virtual+relativity+boffi' }
@@ -382,14 +381,56 @@ export class App implements OnInit, AfterViewInit {
       title: 'In Progress',
       badge: 'Upcoming',
       status: 'in_progress',
-      placeholder: 'I will add it later',
-      projects: []
+      projects: [
+        {
+          //title: 'SolarSim 3D: Reimagining STEM Education',
+          title: 'Next-Gen Digital Pedagogy via Interactive STEM Technologies',
+          description: 'My vision is to modernize and digitize STEM education by replacing static, theoretical instruction with interactive learning platforms. To demonstrate the viability of this vision, the first project in this initiative is a realistic 3D Solar System simulator. Designed to balance astronomical accuracy with educational clarity, the application features tailored planetary scaling, orbital mechanics, dynamics, and realistic lighting. By allowing users to freely explore celestial bodies in real time, the application demonstrates how interactive technology can simplify complex natural systems and reshape science learning.',
+          coverUrl: './assets/projects_video/solarsystem.mp4',
+          videoUrl: 'https://vimeo.com/1183285952',
+          links: [
+            { name: 'Live Usage!', url: 'https://solar-system.netsons.org/' },
+            { name: 'GitHub ↗', url: 'https://github.com/albertoboffi/solar-system-3d' },
+            { name: 'Demo ↗', url: 'https://vimeo.com/1183285952' },
+          ]
+        },
+        {
+          //title: 'SolarSim 3D: Reimagining STEM Education',
+          title: 'Moka PHP: A Lightweight PHP Library for Building High-Performance REST APIs',
+          description: 'Built to overcome the overhead of monolithic frameworks, Moka PHP is a lightweight library engineered for ultra-low latency REST APIs and developer simplicity. With an intuitive, clutter-free setup, it is ideal for high-throughput applications, AI microservices requiring real-time agent/LLM data streaming, and rapid prototyping where speed and ease of use are non-negotiable. Development is currently focused on expanding the core to include a dedicated abstraction layer for SQL database interactions and a comprehensive module for user authentication and account management.',
+          coverUrl: '',
+          videoUrl: '',
+          links: [
+            { name: 'GitHub ↗', url: 'https://github.com/albertoboffi/moka-php' },
+            { name: 'Website ↗', url: 'https://moka-php.netsons.org/' },
+          ]
+        },
+        {
+          //title: 'SolarSim 3D: Reimagining STEM Education',
+          title: 'Ludico: Web Platform for Instant Party & Board Games',
+          description: 'Designed to eliminate the friction of traditional party games, Ludico is a real-time web platform engineered for instant, multiplayer entertainment. Built around a modular game engine, it enables seamless social play without requiring app downloads or account setup. It currently features "Mind Link", already a top-tier digital adaptation of the popular Italian show Reazione a Catena ("Intesa Vincente"), and the newly released beta "The Impostor". Current development is mainly focused on infrastructure scaling.',
+          coverUrl: '',
+          videoUrl: '',
+          links: [
+            { name: 'Live Usage!', url: 'https://ludico.fun/' }
+          ]
+        }
+      ]
     },
     {
       title: 'Deprecated',
       badge: 'Archived',
       status: 'deprecated',
       projects: [
+        {
+          title: 'Automated HRI Simulation Environments for Healthcare Scenarios',
+          description: 'Simulation framework developed in collaboration with researchers and professors at Politecnico di Milano to model and evaluate stochastic human-robot interaction within healthcare environments. Designed to bridge the gap between robotics engineering and clinical workflows, the system enabled healthcare professionals to define and customize interaction scenarios through high-level declarative notation without low-level programming. The framework automatically generated corresponding 3D virtual environments, delivering real-time visual simulation and quantitative evaluation to assess patient-robot safety, workflow efficiency, and collaborative dynamics.',
+          coverUrl: './assets/projects_video/hri.mp4',
+          videoUrl: '',
+          links: [
+            { name: 'Article ↗', url: '' }
+          ]
+        },
         {
           title: 'Fluo: Website Composer',
           description: 'Fluo was a drag-and-drop tool for website creation that I developed as a high-school thesis project. It was designed as an All-in-One Workspace targeting non-technical users, whose main features included multi-site hosting, cloud storage, a file system for website and page management, object manipulation through snapping guides, real-time auto-saving, comprehensive text formatting, and position and scale control of images, text, and geometric shapes, both through numerical input and manual manipulation.',
