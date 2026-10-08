@@ -267,195 +267,307 @@
 
       <!-- Projects -->
       <section id="projects" class="space-y-6 scroll-m-20">
-        <h2 class="text-xl font-semibold flex items-center gap-2">
-          💻 Personal Projects
-        </h2>
-        <div class="space-y-12">
-          @for (category of projectCategories; track category.title) {
-          <div class="space-y-6">
-            <!-- Category Header -->
-            <div class="flex items-center justify-between pb-2.5 border-b border-gray-100">
-              <div class="flex items-center gap-2.5">
-                @if (category.status === 'live') {
-                <span class="flex h-2.5 w-2.5 relative">
-                  <span
-                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-                </span>
-                } @else if (category.status === 'in_progress') {
-                <span class="flex h-2.5 w-2.5 rounded-full bg-amber-400"></span>
-                } @else {
-                <span class="flex h-2.5 w-2.5 rounded-full bg-gray-400"></span>
-                }
-                <h3 class="text-base font-semibold text-gray-900">{{category.title}}</h3>
+        <div class="space-y-2">
+          <h2 class="text-xl font-semibold flex items-center gap-2">
+            💻 Personal Projects
+          </h2>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            Some publicly released projects are no longer maintained or no longer public, while others—such as Virtual Relativity or corporate projects—are still actively used. To replace archived projects, new MVPs currently in development or BETA are being created.
+          </p>
+        </div>
+
+        <div class="space-y-6">
+          <!-- Sub-section 1: Released & Archived Projects (Expanded by default) -->
+          <div class="space-y-4">
+            <button type="button" (click)="toggleReleasedProjects()"
+              class="w-full flex items-center justify-between py-2 text-left group cursor-pointer border-b border-gray-100 transition-colors select-none"
+              [attr.aria-expanded]="isReleasedExpanded()">
+              <div class="flex items-center gap-2">
+                <h3 class="text-sm font-semibold text-gray-900 group-hover:text-gray-600 transition-colors">
+                  Released & Archived Projects
+                </h3>
+                <span class="text-xs text-gray-400 font-normal">({{ releasedProjects.length }})</span>
               </div>
-              <span class="px-2.5 py-0.5 rounded-full text-xs font-medium ring-1 ring-inset" [class]="category.status === 'live' ? 'bg-emerald-50 text-emerald-700 ring-emerald-600/20' :
-                         category.status === 'in_progress' ? 'bg-amber-50 text-amber-700 ring-amber-600/20' :
-                         'bg-gray-100 text-gray-600 ring-gray-200'">
-                {{category.badge}}
-              </span>
-            </div>
+              <div class="flex items-center gap-1.5 text-xs text-gray-400 group-hover:text-gray-600 transition-colors">
+                <span>{{ isReleasedExpanded() ? 'Collapse' : 'Expand' }}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="transition-transform duration-200"
+                  [class.rotate-180]="isReleasedExpanded()">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
+            </button>
 
-            <!-- Category Content -->
-            <div class="space-y-10">
-              @for (project of category.projects; track project.title) {
-              <article class="space-y-4">
-                @if (project?.videoUrl) {
+            @if (isReleasedExpanded()) {
+            <div class="space-y-3.5 animate-[fadeIn_0.2s_ease-out]">
+              @for (project of releasedProjects; track project.title) {
+              <article class="p-3.5 sm:p-4 rounded-xl border border-gray-100 bg-white hover:border-gray-200 hover:shadow-xs transition-all duration-200 flex flex-col sm:flex-row gap-3.5 sm:gap-4">
+                @if (project.coverUrl) {
                 <div
-                  class="relative w-full h-48 md:h-64 rounded-2xl bg-gray-100 border border-gray-100/20 overflow-hidden cursor-pointer"
-                  tabindex="0" role="button" [attr.aria-label]="'Watch video for ' + project.title"
-                  (keydown.enter)="openUrl(project.videoUrl ?? '')" (click)="openUrl(project.videoUrl ?? '');">
-                  <!-- Category Overlay Badge -->
-                  <div class="absolute top-3 left-3 z-20 pointer-events-none">
-                    <span
-                      class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold backdrop-blur-md shadow-xs"
-                      [class]="category.status === 'live' ? 'bg-white/95 text-emerald-800 border border-emerald-200/80 ring-1 ring-emerald-500/10' :
-                               category.status === 'in_progress' ? 'bg-white/95 text-amber-800 border border-amber-200/80 ring-1 ring-amber-500/10' :
-                               'bg-white/95 text-gray-700 border border-gray-200/80 ring-1 ring-gray-400/10'">
-                      @if (category.status === 'live') {
-                      <span class="flex h-2 w-2 relative">
-                        <span
-                          class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                      </span>
-                      } @else if (category.status === 'in_progress') {
-                      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-                      } @else {
-                      <svg class="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" stroke-width="2"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
-                      </svg>
-                      }
-                      {{category.title}}
-                    </span>
-                  </div>
-
+                  class="w-full sm:w-44 md:w-48 aspect-video sm:h-28 shrink-0 rounded-lg bg-gray-100 border border-gray-100/40 overflow-hidden relative group/thumb"
+                  [class.cursor-pointer]="!!project.videoUrl"
+                  [attr.tabindex]="project.videoUrl ? '0' : null"
+                  [attr.role]="project.videoUrl ? 'button' : null"
+                  [attr.aria-label]="project.videoUrl ? 'Watch video for ' + project.title : null"
+                  (keydown.enter)="project.videoUrl && openUrl(project.videoUrl)"
+                  (click)="project.videoUrl && openUrl(project.videoUrl)">
                   @if (isVideoLoading(project.title)) {
                   <div
                     class="absolute inset-0 flex items-center justify-center bg-gray-100 z-10 transition-opacity duration-300">
-                    <div class="w-6 h-6 rounded-full border-2 border-gray-300 border-t-gray-800 animate-spin"></div>
+                    <div class="w-5 h-5 rounded-full border-2 border-gray-300 border-t-gray-800 animate-spin"></div>
                   </div>
                   }
                   <video [src]="project.coverUrl" autoplay loop [muted]="true" playsinline preload="auto"
                     (loadeddata)="onVideoLoaded(project.title)" (canplay)="onVideoLoaded(project.title)"
-                    (playing)="onVideoLoaded(project.title)"
+                    (playing)="onVideoLoaded(project.title)" (error)="onVideoError(project.title)"
                     class="w-full h-full object-cover transition-opacity duration-300"
                     [class.opacity-0]="isVideoLoading(project.title)"
                     [class.opacity-100]="!isVideoLoading(project.title)"></video>
-                </div>
-                } @else {
-                <div
-                  class="relative w-full h-48 md:h-64 rounded-2xl bg-gray-100 border border-gray-100/20 overflow-hidden">
-                  <!-- Category Overlay Badge -->
-                  <div class="absolute top-3 left-3 z-20 pointer-events-none">
-                    <span
-                      class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold backdrop-blur-md shadow-xs"
-                      [class]="category.status === 'live' ? 'bg-white/95 text-emerald-800 border border-emerald-200/80 ring-1 ring-emerald-500/10' :
-                               category.status === 'in_progress' ? 'bg-white/95 text-amber-800 border border-amber-200/80 ring-1 ring-amber-500/10' :
-                               'bg-white/95 text-gray-700 border border-gray-200/80 ring-1 ring-gray-400/10'">
-                      @if (category.status === 'live') {
-                      <span class="flex h-2 w-2 relative">
-                        <span
-                          class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                      </span>
-                      } @else if (category.status === 'in_progress') {
-                      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-                      } @else {
-                      <svg class="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" stroke-width="2"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
-                      </svg>
-                      }
-                      {{category.title}}
-                    </span>
+                  @if (project.videoUrl) {
+                  <div class="absolute inset-0 bg-black/5 group-hover/thumb:bg-black/20 flex items-center justify-center transition-colors pointer-events-none">
+                    <div class="w-7 h-7 rounded-full bg-white/90 backdrop-blur-xs flex items-center justify-center text-gray-800 shadow-xs group-hover/thumb:scale-110 transition-transform">
+                      <svg class="w-3.5 h-3.5 fill-current translate-x-0.5" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" /></svg>
+                    </div>
                   </div>
-                  <img [src]="project.coverUrl" alt="{{project.title}}" class="w-full h-full object-cover" />
+                  }
                 </div>
                 }
-                <div class="space-y-2">
-                  <div class="flex items-center gap-2">
-                    <span
-                      class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium ring-1 ring-inset"
-                      [class]="category.status === 'live' ? 'bg-emerald-50 text-emerald-700 ring-emerald-600/20' :
-                               category.status === 'in_progress' ? 'bg-amber-50 text-amber-700 ring-amber-600/20' :
-                               'bg-gray-100 text-gray-600 ring-gray-200'">
-                      @if (category.status === 'live') {
-                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                      } @else if (category.status === 'in_progress') {
-                      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-                      } @else {
-                      <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+                <div class="flex-1 min-w-0 space-y-1.5">
+                  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1">
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <h4 class="font-bold text-gray-900 text-sm sm:text-[15px] leading-snug">{{project.title}}</h4>
+                      @if (project.badge) {
+                      <span
+                        class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium ring-1 ring-inset"
+                        [class]="project.status === 'live' ? 'bg-emerald-50 text-emerald-700 ring-emerald-600/20' :
+                                 project.status === 'in_progress' ? 'bg-amber-50 text-amber-700 ring-amber-600/20' :
+                                 'bg-gray-100 text-gray-600 ring-gray-200'">
+                        @if (project.status === 'live') {
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                        } @else if (project.status === 'in_progress') {
+                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                        } @else {
+                        <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+                        }
+                        {{project.badge}}
+                      </span>
                       }
-                      {{category.title}}
-                    </span>
+                    </div>
+                    @if (project.date) {
+                    <span class="text-xs text-gray-500 shrink-0 sm:mt-0 mt-0.5">{{project.date}}</span>
+                    }
                   </div>
-                  <h4 class="font-bold text-gray-900">{{project.title}}</h4>
-                  <p class="text-sm text-gray-700 leading-relaxed whitespace-pre-line">{{project.description}}</p>
-                  <div class="space-y-2.5 pt-2.5">
-                    @for (row of getProjectLinkRows(project.links); track $index) {
-                    <div class="flex flex-wrap md:grid gap-2.5" [class.md:grid-cols-1]="row.length === 1"
-                      [class.md:grid-cols-2]="row.length === 2" [class.md:grid-cols-3]="row.length === 3"
-                      [class.md:grid-cols-4]="row.length === 4">
-                      @for (link of row; track link.name) {
-                      <a [href]="link.url" target="_blank" class="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ring-1 ring-inset w-auto md:w-full
+                  <p class="text-xs sm:text-sm text-gray-600 leading-relaxed whitespace-pre-line">{{project.description}}</p>
+                  @if (project.links && project.links.length > 0) {
+                  <div class="flex flex-wrap gap-1.5 pt-1">
+                    @for (link of project.links; track link.name) {
+                    @if (link.url) {
+                    <a [href]="link.url" target="_blank"
+                      class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium transition-colors ring-1 ring-inset
                         {{ link.name.includes('GitHub') ? 'bg-gray-900 text-white ring-gray-900 hover:bg-gray-800' :
                            link.name.includes('Website') ? 'bg-sky-50 text-sky-700 ring-sky-700/15 hover:bg-sky-100' :
                            link.name.includes('Demo') || link.name.includes('Live') ? 'bg-indigo-50 text-indigo-700 ring-indigo-700/10 hover:bg-indigo-100' :
                            link.name.includes('Article') || link.name.includes('Thesis') ? 'bg-emerald-50 text-emerald-700 ring-emerald-600/10 hover:bg-emerald-100' :
                            'bg-white text-gray-700 ring-gray-200 hover:bg-gray-50' }}">
-
-                        @if (link.name.includes('GitHub')) {
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                          <path fill-rule="evenodd"
-                            d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                            clip-rule="evenodd"></path>
-                        </svg>
-                        } @else if (link.name.includes('Website')) {
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                          <circle cx="12" cy="12" r="10"></circle>
-                          <line x1="2" y1="12" x2="22" y2="12"></line>
-                          <path
-                            d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
-                          </path>
-                        </svg>
-                        } @else if (link.name.includes('Demo') || link.name.includes('Live')) {
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                          <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                        </svg>
-                        } @else if (link.name.includes('Article') || link.name.includes('Thesis')) {
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                          <polyline points="14 2 14 8 20 8"></polyline>
-                          <line x1="16" y1="13" x2="8" y2="13"></line>
-                          <line x1="16" y1="17" x2="8" y2="17"></line>
-                          <polyline points="10 9 9 9 8 9"></polyline>
-                        </svg>
-                        } @else {
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                          <polyline points="15 3 21 3 21 9"></polyline>
-                          <line x1="10" y1="14" x2="21" y2="3"></line>
-                        </svg>
-                        }
-                        {{link.name.replace(' ↗', '')}}
-                      </a>
+                      @if (link.name.includes('GitHub')) {
+                      <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                          d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                          clip-rule="evenodd"></path>
+                      </svg>
+                      } @else if (link.name.includes('Website')) {
+                      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                      </svg>
+                      } @else if (link.name.includes('Demo') || link.name.includes('Live')) {
+                      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                      </svg>
+                      } @else if (link.name.includes('Article') || link.name.includes('Thesis')) {
+                      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                      </svg>
+                      } @else {
+                      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
                       }
-                    </div>
+                      <span>{{link.name.replace(' ↗', '')}}</span>
+                      <span class="text-[10px] opacity-70">↗</span>
+                    </a>
+                    } @else {
+                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium bg-gray-50 text-gray-400 ring-1 ring-inset ring-gray-200">
+                      {{link.name.replace(' ↗', '')}}
+                    </span>
+                    }
                     }
                   </div>
+                  }
                 </div>
               </article>
               }
             </div>
+            }
           </div>
-          }
+
+          <!-- Sub-section 2: MVPs (Collapsed by default) -->
+          <div class="space-y-4">
+            <button type="button" (click)="toggleMvpProjects()"
+              class="w-full flex items-center justify-between py-2 text-left group cursor-pointer border-b border-gray-100 transition-colors select-none"
+              [attr.aria-expanded]="isMvpsExpanded()">
+              <div class="flex items-center gap-2">
+                <h3 class="text-sm font-semibold text-gray-900 group-hover:text-gray-600 transition-colors">
+                  Upcoming MVPs
+                </h3>
+                <span class="text-xs text-gray-400 font-normal">({{ mvpProjects.length }})</span>
+              </div>
+              <div class="flex items-center gap-1.5 text-xs text-gray-400 group-hover:text-gray-600 transition-colors">
+                <span>{{ isMvpsExpanded() ? 'Collapse' : 'Expand' }}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="transition-transform duration-200"
+                  [class.rotate-180]="isMvpsExpanded()">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
+            </button>
+
+            @if (isMvpsExpanded()) {
+            <div class="space-y-3.5 animate-[fadeIn_0.2s_ease-out]">
+              @for (project of mvpProjects; track project.title) {
+              <article class="p-3.5 sm:p-4 rounded-xl border border-gray-100 bg-white hover:border-gray-200 hover:shadow-xs transition-all duration-200 flex flex-col sm:flex-row gap-3.5 sm:gap-4">
+                @if (project.coverUrl) {
+                <div
+                  class="w-full sm:w-44 md:w-48 aspect-video sm:h-28 shrink-0 rounded-lg bg-gray-100 border border-gray-100/40 overflow-hidden relative group/thumb"
+                  [class.cursor-pointer]="!!project.videoUrl"
+                  [attr.tabindex]="project.videoUrl ? '0' : null"
+                  [attr.role]="project.videoUrl ? 'button' : null"
+                  [attr.aria-label]="project.videoUrl ? 'Watch video for ' + project.title : null"
+                  (keydown.enter)="project.videoUrl && openUrl(project.videoUrl)"
+                  (click)="project.videoUrl && openUrl(project.videoUrl)">
+                  @if (isVideoLoading(project.title)) {
+                  <div
+                    class="absolute inset-0 flex items-center justify-center bg-gray-100 z-10 transition-opacity duration-300">
+                    <div class="w-5 h-5 rounded-full border-2 border-gray-300 border-t-gray-800 animate-spin"></div>
+                  </div>
+                  }
+                  <video [src]="project.coverUrl" autoplay loop [muted]="true" playsinline preload="auto"
+                    (loadeddata)="onVideoLoaded(project.title)" (canplay)="onVideoLoaded(project.title)"
+                    (playing)="onVideoLoaded(project.title)" (error)="onVideoError(project.title)"
+                    class="w-full h-full object-cover transition-opacity duration-300"
+                    [class.opacity-0]="isVideoLoading(project.title)"
+                    [class.opacity-100]="!isVideoLoading(project.title)"></video>
+                  @if (project.videoUrl) {
+                  <div class="absolute inset-0 bg-black/5 group-hover/thumb:bg-black/20 flex items-center justify-center transition-colors pointer-events-none">
+                    <div class="w-7 h-7 rounded-full bg-white/90 backdrop-blur-xs flex items-center justify-center text-gray-800 shadow-xs group-hover/thumb:scale-110 transition-transform">
+                      <svg class="w-3.5 h-3.5 fill-current translate-x-0.5" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" /></svg>
+                    </div>
+                  </div>
+                  }
+                </div>
+                }
+                <div class="flex-1 min-w-0 space-y-1.5">
+                  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1">
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <h4 class="font-bold text-gray-900 text-sm sm:text-[15px] leading-snug">{{project.title}}</h4>
+                      @if (project.badge) {
+                      <span
+                        class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium ring-1 ring-inset"
+                        [class]="project.status === 'live' ? 'bg-emerald-50 text-emerald-700 ring-emerald-600/20' :
+                                 project.status === 'in_progress' ? 'bg-amber-50 text-amber-700 ring-amber-600/20' :
+                                 'bg-gray-100 text-gray-600 ring-gray-200'">
+                        @if (project.status === 'live') {
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                        } @else if (project.status === 'in_progress') {
+                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                        } @else {
+                        <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+                        }
+                        {{project.badge}}
+                      </span>
+                      }
+                    </div>
+                    @if (project.date) {
+                    <span class="text-xs text-gray-500 shrink-0 sm:mt-0 mt-0.5">{{project.date}}</span>
+                    }
+                  </div>
+                  <p class="text-xs sm:text-sm text-gray-600 leading-relaxed whitespace-pre-line">{{project.description}}</p>
+                  @if (project.links && project.links.length > 0) {
+                  <div class="flex flex-wrap gap-1.5 pt-1">
+                    @for (link of project.links; track link.name) {
+                    @if (link.url) {
+                    <a [href]="link.url" target="_blank"
+                      class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium transition-colors ring-1 ring-inset
+                        {{ link.name.includes('GitHub') ? 'bg-gray-900 text-white ring-gray-900 hover:bg-gray-800' :
+                           link.name.includes('Website') ? 'bg-sky-50 text-sky-700 ring-sky-700/15 hover:bg-sky-100' :
+                           link.name.includes('Demo') || link.name.includes('Live') ? 'bg-indigo-50 text-indigo-700 ring-indigo-700/10 hover:bg-indigo-100' :
+                           link.name.includes('Article') || link.name.includes('Thesis') ? 'bg-emerald-50 text-emerald-700 ring-emerald-600/10 hover:bg-emerald-100' :
+                           'bg-white text-gray-700 ring-gray-200 hover:bg-gray-50' }}">
+                      @if (link.name.includes('GitHub')) {
+                      <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                          d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                          clip-rule="evenodd"></path>
+                      </svg>
+                      } @else if (link.name.includes('Website')) {
+                      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                      </svg>
+                      } @else if (link.name.includes('Demo') || link.name.includes('Live')) {
+                      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                      </svg>
+                      } @else if (link.name.includes('Article') || link.name.includes('Thesis')) {
+                      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                      </svg>
+                      } @else {
+                      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                      }
+                      <span>{{link.name.replace(' ↗', '')}}</span>
+                      <span class="text-[10px] opacity-70">↗</span>
+                    </a>
+                    } @else {
+                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium bg-gray-50 text-gray-400 ring-1 ring-inset ring-gray-200">
+                      {{link.name.replace(' ↗', '')}}
+                    </span>
+                    }
+                    }
+                  </div>
+                  }
+                </div>
+              </article>
+              }
+            </div>
+            }
+          </div>
         </div>
       </section>
 
