@@ -272,7 +272,9 @@
             💻 Personal Projects
           </h2>
           <p class="text-sm text-gray-600 leading-relaxed">
-            Some publicly released projects are no longer maintained or no longer public, while others—such as Virtual Relativity or corporate projects—are still actively used. To replace archived projects, new MVPs currently in development or BETA are being created.
+            Some publicly released projects are no longer maintained or no longer public, while others—such as Virtual
+            Relativity or corporate projects—are still actively used. To replace archived projects, new MVPs currently
+            in development or BETA are being created.
           </p>
         </div>
 
@@ -290,24 +292,27 @@
               </div>
               <div class="flex items-center gap-1.5 text-xs text-gray-400 group-hover:text-gray-600 transition-colors">
                 <span>{{ isReleasedExpanded() ? 'Collapse' : 'Expand' }}</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                  class="transition-transform duration-200"
-                  [class.rotate-180]="isReleasedExpanded()">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
+                <div
+                  class="w-[25px] h-[25px] rounded-full bg-[#f4f4f4] mx-auto text-center flex items-center justify-center transition duration-200 hover:bg-[#e3e3e3]">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="transition-transform duration-200" [class.rotate-180]="isReleasedExpanded()"
+                    style="color: #4f4f4f;">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </div>
               </div>
             </button>
 
             @if (isReleasedExpanded()) {
             <div class="space-y-3.5 animate-[fadeIn_0.2s_ease-out]">
               @for (project of releasedProjects; track project.title) {
-              <article class="p-3.5 sm:p-4 rounded-xl border border-gray-100 bg-white hover:border-gray-200 hover:shadow-xs transition-all duration-200 flex flex-col sm:flex-row gap-3.5 sm:gap-4">
+              <article
+                class="p-3.5 sm:p-4 rounded-xl border border-gray-100 bg-white hover:border-gray-200 hover:shadow-xs transition-all duration-200 flex flex-col sm:flex-row gap-3.5 sm:gap-4">
                 @if (project.coverUrl) {
                 <div
-                  class="w-full sm:w-44 md:w-48 aspect-video sm:h-28 shrink-0 rounded-lg bg-gray-100 border border-gray-100/40 overflow-hidden relative group/thumb"
-                  [class.cursor-pointer]="!!project.videoUrl"
-                  [attr.tabindex]="project.videoUrl ? '0' : null"
+                  class="w-full sm:w-[280px] md:w-[280px] aspect-video sm:h-[150px] shrink-0 rounded-lg bg-gray-100 border border-gray-100/40 overflow-hidden relative group/thumb"
+                  [class.cursor-pointer]="!!project.videoUrl" [attr.tabindex]="project.videoUrl ? '0' : null"
                   [attr.role]="project.videoUrl ? 'button' : null"
                   [attr.aria-label]="project.videoUrl ? 'Watch video for ' + project.title : null"
                   (keydown.enter)="project.videoUrl && openUrl(project.videoUrl)"
@@ -324,22 +329,14 @@
                     class="w-full h-full object-cover transition-opacity duration-300"
                     [class.opacity-0]="isVideoLoading(project.title)"
                     [class.opacity-100]="!isVideoLoading(project.title)"></video>
-                  @if (project.videoUrl) {
-                  <div class="absolute inset-0 bg-black/5 group-hover/thumb:bg-black/20 flex items-center justify-center transition-colors pointer-events-none">
-                    <div class="w-7 h-7 rounded-full bg-white/90 backdrop-blur-xs flex items-center justify-center text-gray-800 shadow-xs group-hover/thumb:scale-110 transition-transform">
-                      <svg class="w-3.5 h-3.5 fill-current translate-x-0.5" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" /></svg>
-                    </div>
-                  </div>
-                  }
                 </div>
                 }
                 <div class="flex-1 min-w-0 space-y-1.5">
                   <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1">
                     <div class="flex items-center gap-2 flex-wrap">
-                      <h4 class="font-bold text-gray-900 text-sm sm:text-[15px] leading-snug">{{project.title}}</h4>
                       @if (project.badge) {
                       <span
-                        class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium ring-1 ring-inset"
+                        class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium ring-1 ring-inset w-[100px] justify-center"
                         [class]="project.status === 'live' ? 'bg-emerald-50 text-emerald-700 ring-emerald-600/20' :
                                  project.status === 'in_progress' ? 'bg-amber-50 text-amber-700 ring-amber-600/20' :
                                  'bg-gray-100 text-gray-600 ring-gray-200'">
@@ -353,18 +350,20 @@
                         {{project.badge}}
                       </span>
                       }
+                      <h4 class="font-bold text-gray-900 text-sm sm:text-[15px] leading-snug w-full mt-[10px]">
+                        {{project.title}}</h4>
                     </div>
                     @if (project.date) {
                     <span class="text-xs text-gray-500 shrink-0 sm:mt-0 mt-0.5">{{project.date}}</span>
                     }
                   </div>
-                  <p class="text-xs sm:text-sm text-gray-600 leading-relaxed whitespace-pre-line">{{project.description}}</p>
+                  <p class="text-xs sm:text-sm text-gray-600 leading-relaxed whitespace-pre-line">
+                    {{project.description}}</p>
                   @if (project.links && project.links.length > 0) {
                   <div class="flex flex-wrap gap-1.5 pt-1">
                     @for (link of project.links; track link.name) {
                     @if (link.url) {
-                    <a [href]="link.url" target="_blank"
-                      class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium transition-colors ring-1 ring-inset
+                    <a [href]="link.url" target="_blank" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium transition-colors ring-1 ring-inset
                         {{ link.name.includes('GitHub') ? 'bg-gray-900 text-white ring-gray-900 hover:bg-gray-800' :
                            link.name.includes('Website') ? 'bg-sky-50 text-sky-700 ring-sky-700/15 hover:bg-sky-100' :
                            link.name.includes('Demo') || link.name.includes('Live') ? 'bg-indigo-50 text-indigo-700 ring-indigo-700/10 hover:bg-indigo-100' :
@@ -381,7 +380,9 @@
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10"></circle>
                         <line x1="2" y1="12" x2="22" y2="12"></line>
-                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        <path
+                          d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                        </path>
                       </svg>
                       } @else if (link.name.includes('Demo') || link.name.includes('Live')) {
                       <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
@@ -409,7 +410,8 @@
                       <span class="text-[10px] opacity-70">↗</span>
                     </a>
                     } @else {
-                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium bg-gray-50 text-gray-400 ring-1 ring-inset ring-gray-200">
+                    <span
+                      class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium bg-gray-50 text-gray-400 ring-1 ring-inset ring-gray-200">
                       {{link.name.replace(' ↗', '')}}
                     </span>
                     }
@@ -436,24 +438,27 @@
               </div>
               <div class="flex items-center gap-1.5 text-xs text-gray-400 group-hover:text-gray-600 transition-colors">
                 <span>{{ isMvpsExpanded() ? 'Collapse' : 'Expand' }}</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                  class="transition-transform duration-200"
-                  [class.rotate-180]="isMvpsExpanded()">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
+                <div
+                  class="w-[25px] h-[25px] rounded-full bg-[#f4f4f4] mx-auto text-center flex items-center justify-center transition duration-200 hover:bg-[#e3e3e3]">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="transition-transform duration-200" [class.rotate-180]="isMvpsExpanded()"
+                    style="color: #4f4f4f;">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </div>
               </div>
             </button>
 
             @if (isMvpsExpanded()) {
             <div class="space-y-3.5 animate-[fadeIn_0.2s_ease-out]">
               @for (project of mvpProjects; track project.title) {
-              <article class="p-3.5 sm:p-4 rounded-xl border border-gray-100 bg-white hover:border-gray-200 hover:shadow-xs transition-all duration-200 flex flex-col sm:flex-row gap-3.5 sm:gap-4">
+              <article
+                class="p-3.5 sm:p-4 rounded-xl border border-gray-100 bg-white hover:border-gray-200 hover:shadow-xs transition-all duration-200 flex flex-col sm:flex-row gap-3.5 sm:gap-4">
                 @if (project.coverUrl) {
                 <div
-                  class="w-full sm:w-44 md:w-48 aspect-video sm:h-28 shrink-0 rounded-lg bg-gray-100 border border-gray-100/40 overflow-hidden relative group/thumb"
-                  [class.cursor-pointer]="!!project.videoUrl"
-                  [attr.tabindex]="project.videoUrl ? '0' : null"
+                  class="w-full sm:w-[280px] md:w-[280px] aspect-video sm:h-[150px] shrink-0 rounded-lg bg-gray-100 border border-gray-100/40 overflow-hidden relative group/thumb"
+                  [class.cursor-pointer]="!!project.videoUrl" [attr.tabindex]="project.videoUrl ? '0' : null"
                   [attr.role]="project.videoUrl ? 'button' : null"
                   [attr.aria-label]="project.videoUrl ? 'Watch video for ' + project.title : null"
                   (keydown.enter)="project.videoUrl && openUrl(project.videoUrl)"
@@ -470,22 +475,14 @@
                     class="w-full h-full object-cover transition-opacity duration-300"
                     [class.opacity-0]="isVideoLoading(project.title)"
                     [class.opacity-100]="!isVideoLoading(project.title)"></video>
-                  @if (project.videoUrl) {
-                  <div class="absolute inset-0 bg-black/5 group-hover/thumb:bg-black/20 flex items-center justify-center transition-colors pointer-events-none">
-                    <div class="w-7 h-7 rounded-full bg-white/90 backdrop-blur-xs flex items-center justify-center text-gray-800 shadow-xs group-hover/thumb:scale-110 transition-transform">
-                      <svg class="w-3.5 h-3.5 fill-current translate-x-0.5" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" /></svg>
-                    </div>
-                  </div>
-                  }
                 </div>
                 }
                 <div class="flex-1 min-w-0 space-y-1.5">
                   <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1">
                     <div class="flex items-center gap-2 flex-wrap">
-                      <h4 class="font-bold text-gray-900 text-sm sm:text-[15px] leading-snug">{{project.title}}</h4>
                       @if (project.badge) {
                       <span
-                        class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium ring-1 ring-inset"
+                        class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium ring-1 ring-inset w-[100px] justify-center"
                         [class]="project.status === 'live' ? 'bg-emerald-50 text-emerald-700 ring-emerald-600/20' :
                                  project.status === 'in_progress' ? 'bg-amber-50 text-amber-700 ring-amber-600/20' :
                                  'bg-gray-100 text-gray-600 ring-gray-200'">
@@ -499,18 +496,20 @@
                         {{project.badge}}
                       </span>
                       }
+                      <h4 class="font-bold text-gray-900 text-sm sm:text-[15px] leading-snug w-full mt-[10px]">
+                        {{project.title}}</h4>
                     </div>
                     @if (project.date) {
                     <span class="text-xs text-gray-500 shrink-0 sm:mt-0 mt-0.5">{{project.date}}</span>
                     }
                   </div>
-                  <p class="text-xs sm:text-sm text-gray-600 leading-relaxed whitespace-pre-line">{{project.description}}</p>
+                  <p class="text-xs sm:text-sm text-gray-600 leading-relaxed whitespace-pre-line">
+                    {{project.description}}</p>
                   @if (project.links && project.links.length > 0) {
                   <div class="flex flex-wrap gap-1.5 pt-1">
                     @for (link of project.links; track link.name) {
                     @if (link.url) {
-                    <a [href]="link.url" target="_blank"
-                      class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium transition-colors ring-1 ring-inset
+                    <a [href]="link.url" target="_blank" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium transition-colors ring-1 ring-inset
                         {{ link.name.includes('GitHub') ? 'bg-gray-900 text-white ring-gray-900 hover:bg-gray-800' :
                            link.name.includes('Website') ? 'bg-sky-50 text-sky-700 ring-sky-700/15 hover:bg-sky-100' :
                            link.name.includes('Demo') || link.name.includes('Live') ? 'bg-indigo-50 text-indigo-700 ring-indigo-700/10 hover:bg-indigo-100' :
@@ -527,7 +526,9 @@
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10"></circle>
                         <line x1="2" y1="12" x2="22" y2="12"></line>
-                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        <path
+                          d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                        </path>
                       </svg>
                       } @else if (link.name.includes('Demo') || link.name.includes('Live')) {
                       <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
@@ -555,7 +556,8 @@
                       <span class="text-[10px] opacity-70">↗</span>
                     </a>
                     } @else {
-                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium bg-gray-50 text-gray-400 ring-1 ring-inset ring-gray-200">
+                    <span
+                      class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium bg-gray-50 text-gray-400 ring-1 ring-inset ring-gray-200">
                       {{link.name.replace(' ↗', '')}}
                     </span>
                     }

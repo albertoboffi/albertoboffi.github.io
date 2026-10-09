@@ -187,7 +187,7 @@ export class App implements OnInit, AfterViewInit {
     name: "Alberto Boffi",
     greet: "Hi, I'm Alberto Boffi 👋",
     role: 'Computer Science Engineer',
-    description: 'I am a computer science engineer specializing in scalable full-stack applications and artificial intelligence, with a deep architectural foundation spanning data science, computer graphics, cybersecurity and advanced algorithms.',
+    description: 'I am a computer science engineer specializing in scalable full-stack applications and artificial intelligence, with a deep mathematical background and architectural foundation spanning data science, cybersecurity, advanced algorithms, computer graphics and several computing domains.',
     photo: './assets/albertoboffi.webp'
   };
 
@@ -366,7 +366,7 @@ export class App implements OnInit, AfterViewInit {
 
   releasedProjects: Project[] = [
     {
-      title: 'VirtualRelativity: An Interactive Simulation of the Special Theory of Relativity in Virtual Reality',
+      title: 'VirtualRelativity: An Interactive Simulation of the Special Theory of Relativity in VR',
       date: '2024',
       badge: 'Active',
       status: 'live',
@@ -390,9 +390,9 @@ export class App implements OnInit, AfterViewInit {
       status: 'deprecated',
       description: 'Simulation framework developed in collaboration with researchers and professors at Politecnico di Milano to model and evaluate stochastic human-robot interaction within healthcare environments. Designed to bridge the gap between robotics engineering and clinical workflows, the system enabled healthcare professionals to define and customize interaction scenarios through high-level declarative notation without low-level programming. The framework automatically generated corresponding 3D virtual environments, delivering real-time visual simulation and quantitative evaluation to assess patient-robot safety, workflow efficiency, and collaborative dynamics.',
       coverUrl: './assets/projects_video/hri.mp4',
-      videoUrl: '',
+      videoUrl: './assets/papers/hri.pdf',
       links: [
-        { name: 'Article ↗', url: '' }
+        { name: 'Article ↗', url: './assets/papers/hri.pdf' }
       ]
     },
     {
@@ -439,7 +439,7 @@ export class App implements OnInit, AfterViewInit {
       title: 'Moka PHP: A Lightweight PHP Library for Building High-Performance REST APIs',
       badge: 'In Progress',
       status: 'in_progress',
-      description: 'Built to overcome the overhead of monolithic frameworks, Moka PHP is a lightweight library engineered for ultra-low latency REST APIs and developer simplicity. With an intuitive, clutter-free setup, it is ideal for high-throughput applications, AI microservices requiring real-time agent/LLM data streaming, and rapid prototyping where speed and ease of use are non-negotiable. Development is currently focused on expanding the core to include a dedicated abstraction layer for SQL database interactions and a comprehensive module for user authentication and account management.',
+      description: 'As my newest project, currently in its early stages of development, Moka PHP is built to overcome the overhead of monolithic frameworks as a lightweight library engineered for ultra-low latency REST APIs and developer simplicity. With an intuitive, clutter-free setup, it is ideal for high-throughput applications, AI microservices requiring real-time agent/LLM data streaming, and rapid prototyping where speed and ease of use are non-negotiable. Development is currently focused on expanding the core to include a dedicated abstraction layer for SQL database interactions and a comprehensive module for user authentication and account management.',
       coverUrl: '',
       videoUrl: '',
       links: [
@@ -451,7 +451,7 @@ export class App implements OnInit, AfterViewInit {
       title: 'Ludico: Web Platform for Instant Party & Board Games',
       badge: 'BETA',
       status: 'in_progress',
-      description: 'Designed to eliminate the friction of traditional party games, Ludico is a real-time web platform engineered for instant, multiplayer entertainment. Built around a modular game engine, it enables seamless social play without requiring app downloads or account setup. It currently features "Mind Link", already a top-tier digital adaptation of the popular Italian show Reazione a Catena ("Intesa Vincente"), and the newly released beta "The Impostor". Current development is mainly focused on infrastructure scaling.',
+      description: 'Designed to eliminate the friction of traditional party games, Ludico is a real-time web platform engineered for instant, multiplayer entertainment. Built around a modular game engine and an event-driven architecture, it leverages optimized client-server messaging and state synchronization to deliver seamless, low-latency social play across devices without requiring app downloads or account setup. It currently features "Mind Link", already a top-tier digital adaptation of the popular Italian show Reazione a Catena ("Intesa Vincente"), and the newly released beta "The Impostor". Current development is mainly focused on infrastructure scaling.',
       coverUrl: '',
       videoUrl: '',
       links: [
