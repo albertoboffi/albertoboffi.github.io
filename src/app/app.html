@@ -148,7 +148,7 @@
       <!-- Work Experience -->
       <section id="experience" class="space-y-6 scroll-m-20">
         <h2 class="text-xl font-semibold flex items-center gap-2">
-          🚀 Experience
+          🚀 Current Role
         </h2>
         <div class="space-y-8">
           @for (exp of workExperience; track exp.company) {
@@ -272,9 +272,14 @@
             💻 Personal Projects
           </h2>
           <p class="text-sm text-gray-600 leading-relaxed">
-            Some publicly released projects are no longer maintained or no longer public, while others—such as Virtual
-            Relativity or corporate projects—are still actively used. To replace archived projects, new MVPs currently
-            in development or BETA are being created.
+            Below is a non-exhaustive selection of my <b>projects</b>.<br /><br />
+            Some previously launched projects are no longer maintained or publicly available, while others, such as
+            VirtualRelativity and various corporate solutions, remain active and in use today. To replace archived work,
+            I am actively building new MVPs currently in BETA or early development.<br /><br />
+            This list excludes most of my enterprise projects. They eat up most of my time, but they cannot be disclosed
+            publicly due to NDA restrictions. To see my latest public repositories and active work, feel free to check
+            out my <a href="https://github.com/albertoboffi" target="_blank"
+              style="font-weight: bold; text-decoration: underline;">GitHub profile</a>.
           </p>
         </div>
 
@@ -286,7 +291,7 @@
               [attr.aria-expanded]="isReleasedExpanded()">
               <div class="flex items-center gap-2">
                 <h3 class="text-sm font-semibold text-gray-900 group-hover:text-gray-600 transition-colors">
-                  Released & Archived Projects
+                  Released Projects
                 </h3>
                 <span class="text-xs text-gray-400 font-normal">({{ releasedProjects.length }})</span>
               </div>
@@ -317,18 +322,24 @@
                   [attr.aria-label]="project.videoUrl ? 'Watch video for ' + project.title : null"
                   (keydown.enter)="project.videoUrl && openUrl(project.videoUrl)"
                   (click)="project.videoUrl && openUrl(project.videoUrl)">
-                  @if (isVideoLoading(project.title)) {
+                  @if (isVideoLoading(project.title) && !!project.videoUrl) {
                   <div
                     class="absolute inset-0 flex items-center justify-center bg-gray-100 z-10 transition-opacity duration-300">
                     <div class="w-5 h-5 rounded-full border-2 border-gray-300 border-t-gray-800 animate-spin"></div>
                   </div>
                   }
+                  @if (!!project.videoUrl) {
                   <video [src]="project.coverUrl" autoplay loop [muted]="true" playsinline preload="auto"
                     (loadeddata)="onVideoLoaded(project.title)" (canplay)="onVideoLoaded(project.title)"
                     (playing)="onVideoLoaded(project.title)" (error)="onVideoError(project.title)"
                     class="w-full h-full object-cover transition-opacity duration-300"
                     [class.opacity-0]="isVideoLoading(project.title)"
                     [class.opacity-100]="!isVideoLoading(project.title)"></video>
+                  }
+                  @else {
+                  <img [src]="project.coverUrl" alt=""
+                    class="w-full h-full object-cover transition-opacity duration-300">
+                  }
                 </div>
                 }
                 <div class="flex-1 min-w-0 space-y-1.5">
@@ -463,18 +474,24 @@
                   [attr.aria-label]="project.videoUrl ? 'Watch video for ' + project.title : null"
                   (keydown.enter)="project.videoUrl && openUrl(project.videoUrl)"
                   (click)="project.videoUrl && openUrl(project.videoUrl)">
-                  @if (isVideoLoading(project.title)) {
+                  @if (isVideoLoading(project.title) && !!project.videoUrl) {
                   <div
                     class="absolute inset-0 flex items-center justify-center bg-gray-100 z-10 transition-opacity duration-300">
                     <div class="w-5 h-5 rounded-full border-2 border-gray-300 border-t-gray-800 animate-spin"></div>
                   </div>
                   }
+                  @if (!!project.videoUrl) {
                   <video [src]="project.coverUrl" autoplay loop [muted]="true" playsinline preload="auto"
                     (loadeddata)="onVideoLoaded(project.title)" (canplay)="onVideoLoaded(project.title)"
                     (playing)="onVideoLoaded(project.title)" (error)="onVideoError(project.title)"
                     class="w-full h-full object-cover transition-opacity duration-300"
                     [class.opacity-0]="isVideoLoading(project.title)"
                     [class.opacity-100]="!isVideoLoading(project.title)"></video>
+                  }
+                  @else{
+                  <img [src]="project.coverUrl" alt=""
+                    class="w-full h-full object-cover transition-opacity duration-300">
+                  }
                 </div>
                 }
                 <div class="flex-1 min-w-0 space-y-1.5">

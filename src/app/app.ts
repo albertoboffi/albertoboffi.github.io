@@ -77,7 +77,7 @@ export class App implements OnInit, AfterViewInit {
 
   sections = [
     { id: 'about', label: 'About' },
-    { id: 'experience', label: 'Experience' },
+    { id: 'experience', label: 'Current Role' },
     { id: 'education', label: 'Education' },
     { id: 'skills', label: 'Tech Stack' },
     { id: 'projects', label: 'Projects' },
@@ -371,7 +371,7 @@ export class App implements OnInit, AfterViewInit {
       badge: 'Active',
       status: 'live',
       description: 'VirtualRelativity is an innovative VR solution designed to simulate the effects of Einstein’s Special Theory of Relativity in a digital environment. The current implementation includes a Unity package that accurately models space contraction, time dilation, and the relativistic Doppler effect, as well as a final application that provides engaging ways to understand relativistic phenomena through real-life scenarios.\n\nThe application has also been used by Master’s students in Physical Engineering at Politecnico di Milano, and the work has started drawing citations across multiple physiscs sources, paving the way for future development in scientific education.',
-      coverUrl: './assets/projects_video/virtualrelativity.mp4',
+      coverUrl: './assets/projects_cover/virtualrelativity.mp4',
       videoUrl: 'https://vimeo.com/927037750',
       links: [
         { name: 'GitHub ↗', url: 'https://github.com/albertoboffi/virtual-relativity' },
@@ -389,7 +389,7 @@ export class App implements OnInit, AfterViewInit {
       badge: 'Archived',
       status: 'deprecated',
       description: 'Simulation framework developed in collaboration with researchers and professors at Politecnico di Milano to model and evaluate stochastic human-robot interaction within healthcare environments. Designed to bridge the gap between robotics engineering and clinical workflows, the system enabled healthcare professionals to define and customize interaction scenarios through high-level declarative notation without low-level programming. The framework automatically generated corresponding 3D virtual environments, delivering real-time visual simulation and quantitative evaluation to assess patient-robot safety, workflow efficiency, and collaborative dynamics.',
-      coverUrl: './assets/projects_video/hri.mp4',
+      coverUrl: './assets/projects_cover/hri.mp4',
       videoUrl: './assets/papers/hri.pdf',
       links: [
         { name: 'Article ↗', url: './assets/papers/hri.pdf' }
@@ -401,7 +401,7 @@ export class App implements OnInit, AfterViewInit {
       badge: 'Archived',
       status: 'deprecated',
       description: 'Friscool was a web application that I developed during my first year of university, in order to enable students to share and access lecture notes across courses. The aim was to promote an exclusive way to collaborate and exchange knowledge within the academic community.',
-      coverUrl: './assets/projects_video/friscool.mp4',
+      coverUrl: './assets/projects_cover/friscool.mp4',
       videoUrl: 'https://vimeo.com/895625232',
       links: [
         { name: 'Demo ↗', url: 'https://vimeo.com/895625232' }
@@ -413,7 +413,7 @@ export class App implements OnInit, AfterViewInit {
       badge: 'Archived',
       status: 'deprecated',
       description: 'Fluo was a drag-and-drop tool for website creation that I developed as a high-school thesis project. It was designed as an All-in-One Workspace targeting non-technical users, whose main features included multi-site hosting, cloud storage, a file system for website and page management, object manipulation through snapping guides, real-time auto-saving, comprehensive text formatting, and position and scale control of images, text, and geometric shapes, both through numerical input and manual manipulation.',
-      coverUrl: './assets/projects_video/fluo.mp4',
+      coverUrl: './assets/projects_cover/fluo.mp4',
       videoUrl: 'https://vimeo.com/900597283',
       links: [
         { name: 'Demo ↗', url: 'https://vimeo.com/900597283' }
@@ -423,24 +423,11 @@ export class App implements OnInit, AfterViewInit {
 
   mvpProjects: Project[] = [
     {
-      title: 'Next-Gen Digital Pedagogy via Interactive STEM Technologies',
-      badge: 'MVP',
-      status: 'in_progress',
-      description: 'My vision is to modernize and digitize STEM education by replacing static, theoretical instruction with interactive learning platforms. To demonstrate the viability of this vision, the first project in this initiative is a realistic 3D Solar System simulator. Designed to balance astronomical accuracy with educational clarity, the application features tailored planetary scaling, orbital mechanics, dynamics, and realistic lighting. By allowing users to freely explore celestial bodies in real time, the application demonstrates how interactive technology can simplify complex natural systems and reshape science learning.',
-      coverUrl: './assets/projects_video/solarsystem.mp4',
-      videoUrl: 'https://vimeo.com/1183285952',
-      links: [
-        { name: 'Live Usage!', url: 'https://solar-system.netsons.org/' },
-        { name: 'GitHub ↗', url: 'https://github.com/albertoboffi/solar-system-3d' },
-        { name: 'Demo ↗', url: 'https://vimeo.com/1183285952' }
-      ]
-    },
-    {
       title: 'Moka PHP: A Lightweight PHP Library for Building High-Performance REST APIs',
       badge: 'In Progress',
       status: 'in_progress',
       description: 'As my newest project, currently in its early stages of development, Moka PHP is built to overcome the overhead of monolithic frameworks as a lightweight library engineered for ultra-low latency REST APIs and developer simplicity. With an intuitive, clutter-free setup, it is ideal for high-throughput applications, AI microservices requiring real-time agent/LLM data streaming, and rapid prototyping where speed and ease of use are non-negotiable. Development is currently focused on expanding the core to include a dedicated abstraction layer for SQL database interactions and a comprehensive module for user authentication and account management.',
-      coverUrl: '',
+      coverUrl: './assets/projects_cover/moka.webp',
       videoUrl: '',
       links: [
         { name: 'GitHub ↗', url: 'https://github.com/albertoboffi/moka-php' },
@@ -452,10 +439,23 @@ export class App implements OnInit, AfterViewInit {
       badge: 'BETA',
       status: 'in_progress',
       description: 'Designed to eliminate the friction of traditional party games, Ludico is a real-time web platform engineered for instant, multiplayer entertainment. Built around a modular game engine and an event-driven architecture, it leverages optimized client-server messaging and state synchronization to deliver seamless, low-latency social play across devices without requiring app downloads or account setup. It currently features "Mind Link", already a top-tier digital adaptation of the popular Italian show Reazione a Catena ("Intesa Vincente"), and the newly released beta "The Impostor". Current development is mainly focused on infrastructure scaling.',
-      coverUrl: '',
+      coverUrl: './assets/projects_cover/ludico.webp',
       videoUrl: '',
       links: [
-        { name: 'Live Usage!', url: 'https://ludico.fun/' }
+        { name: 'Live Usage!', url: 'https://ludico.astudio.cloud/' }
+      ]
+    },
+    {
+      title: 'Next-Gen Digital Pedagogy via Interactive STEM Technologies',
+      badge: 'MVP',
+      status: 'in_progress',
+      description: 'My vision is to modernize and digitize STEM education by replacing static, theoretical instruction with interactive learning platforms. To demonstrate the viability of this vision, the first project in this initiative is a realistic 3D Solar System simulator. Designed to balance astronomical accuracy with educational clarity, the application features tailored planetary scaling, orbital mechanics, dynamics, and realistic lighting. By allowing users to freely explore celestial bodies in real time, the application demonstrates how interactive technology can simplify complex natural systems and reshape science learning.',
+      coverUrl: './assets/projects_cover/solarsystem.mp4',
+      videoUrl: 'https://vimeo.com/1183285952',
+      links: [
+        { name: 'Live Usage!', url: 'https://solar-system.netsons.org/' },
+        { name: 'GitHub ↗', url: 'https://github.com/albertoboffi/solar-system-3d' },
+        { name: 'Demo ↗', url: 'https://vimeo.com/1183285952' }
       ]
     }
   ];
