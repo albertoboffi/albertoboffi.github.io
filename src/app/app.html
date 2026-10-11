@@ -265,6 +265,82 @@
         </div>
       </section>
 
+      <!-- Blog -->
+      <section id="blog" class="space-y-6 scroll-m-20">
+        <h2 class="text-xl font-semibold flex items-center gap-2">
+          📣 Blog
+        </h2>
+        <div class="grid grid-cols-1 gap-4">
+          @for (post of blogPosts; track post.title) {
+          <a [href]="post.link" target="_blank" class="block no-underline color-inherit cursor-pointer">
+            <article
+              class="group border border-gray-100 rounded-xl overflow-hidden hover:shadow-sm transition-shadow bg-white flex flex-row">
+              <a [href]="post.link" target="_blank"
+                class="w-28 sm:w-36 shrink-0 relative bg-gray-50 overflow-hidden block">
+                <img [src]="post.photo" alt="{{post.title}}"
+                  class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+              </a>
+              <div class="p-3.5 sm:p-5 space-y-2 flex-1 flex flex-col justify-center">
+                <h3 class="text-[15px] sm:text-base font-bold text-gray-900 leading-snug">
+                  <a [href]="post.link" target="_blank" class="hover:text-gray-600 transition-colors">
+                    {{post.title}}
+                    @if (post.isSeries) {
+                    <span
+                      class="inline-block relative -top-0.5 mr-1.5 rounded-full bg-indigo-50 px-2 py-0.5 text-[10px] font-bold text-indigo-700 uppercase tracking-wider ring-1 ring-inset ring-indigo-700/10">Series</span>
+                    }
+                  </a>
+                </h3>
+                <p class="text-[13px] sm:text-sm text-gray-700 leading-relaxed line-clamp-2 sm:line-clamp-none">
+                  {{post.description}}</p>
+                <div class="flex items-center justify-between pt-1">
+                  <a [href]="post.link" target="_blank"
+                    class="inline-flex items-center gap-1.5 text-sm font-semibold text-gray-900 hover:text-gray-600 transition-colors group/link">
+                    {{post.isSeries ? 'Read Articles' : 'Read Article'}}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                      class="transition-transform group-hover/link:translate-x-0.5">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </a>
+                  @if (post.pdfLink) {
+                  <a [href]="post.pdfLink" target="_blank" rel="noreferrer"
+                    class="text-xs font-medium text-gray-400 flex items-center gap-1 px-[18px] py-[6px] bg-[#f5f5f5] rounded-[18px] text-[#868686] hover:bg-[#e5e5e5]"
+                    title="Download PDF">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                      <polyline points="14 2 14 8 20 8"></polyline>
+                    </svg>
+                    PDF
+                  </a>
+                  }
+                </div>
+              </div>
+            </article>
+          </a>
+          }
+        </div>
+
+        <!-- Check out all articles button -->
+        <div class="pt-1">
+          <a href="https://dev.to/albertoboffi" target="_blank" rel="noopener noreferrer"
+            class="group flex items-center justify-center gap-2.5 w-full py-3 px-4 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 hover:border-gray-300 text-sm font-medium text-gray-900 transition-all duration-200 shadow-xs">
+            <svg class="w-5 h-5 text-gray-800 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path
+                d="M7.42 10.05c-.18-.16-.46-.23-.84-.23H5.34v4.36h1.24c.38 0 .66-.07.84-.22.19-.16.29-.42.29-.8v-2.32c0-.37-.1-.63-.29-.79zm5.34.82v2.73h-1.5v-2.73h1.5zM21 4H3C2.45 4 2 4.45 2 5v14c0 .55.45 1 1 1h18c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zM8.84 13.91c-.34.34-.84.51-1.48.51H4.15V9.58h3.21c.64 0 1.14.17 1.48.51.34.34.52.85.52 1.52v.78c0 .67-.18 1.18-.52 1.52zm5.12-.52c0 .32-.07.6-.21.82-.14.22-.35.39-.62.5-.27.11-.6.17-.98.17h-2.7V9.58h2.7c.38 0 .71.06.98.17.27.11.48.28.62.5.14.22.21.5.21.82v2.32zm5.89-3.03h-2.14v4.47h-1.19V9.58h3.33v.78z" />
+            </svg>
+            <span>Explore all articles</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="transition-transform group-hover:translate-x-1 text-gray-500">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+      </section>
+
       <!-- Projects -->
       <section id="projects" class="space-y-6 scroll-m-20">
         <div class="space-y-2">
@@ -368,7 +444,7 @@
                     <span class="text-xs text-gray-500 shrink-0 sm:mt-0 mt-0.5">{{project.date}}</span>
                     }
                   </div>
-                  <p class="text-xs sm:text-sm text-gray-600 leading-relaxed whitespace-pre-line">
+                  <p class="text-xs sm:text-sm text-gray-600 leading-relaxed whitespace-pre-line mb-[15px]">
                     {{project.description}}</p>
                   @if (project.links && project.links.length > 0) {
                   <div class="flex flex-wrap gap-1.5 pt-1">
@@ -520,7 +596,7 @@
                     <span class="text-xs text-gray-500 shrink-0 sm:mt-0 mt-0.5">{{project.date}}</span>
                     }
                   </div>
-                  <p class="text-xs sm:text-sm text-gray-600 leading-relaxed whitespace-pre-line">
+                  <p class="text-xs sm:text-sm text-gray-600 leading-relaxed whitespace-pre-line mb-[15px]">
                     {{project.description}}</p>
                   @if (project.links && project.links.length > 0) {
                   <div class="flex flex-wrap gap-1.5 pt-1">
@@ -587,82 +663,6 @@
             </div>
             }
           </div>
-        </div>
-      </section>
-
-      <!-- Blog -->
-      <section id="blog" class="space-y-6 scroll-m-20">
-        <h2 class="text-xl font-semibold flex items-center gap-2">
-          📣 Blog
-        </h2>
-        <div class="grid grid-cols-1 gap-4">
-          @for (post of blogPosts; track post.title) {
-          <a [href]="post.link" target="_blank" class="block no-underline color-inherit cursor-pointer">
-            <article
-              class="group border border-gray-100 rounded-xl overflow-hidden hover:shadow-sm transition-shadow bg-white flex flex-row">
-              <a [href]="post.link" target="_blank"
-                class="w-28 sm:w-36 shrink-0 relative bg-gray-50 overflow-hidden block">
-                <img [src]="post.photo" alt="{{post.title}}"
-                  class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-              </a>
-              <div class="p-3.5 sm:p-5 space-y-2 flex-1 flex flex-col justify-center">
-                <h3 class="text-[15px] sm:text-base font-bold text-gray-900 leading-snug">
-                  <a [href]="post.link" target="_blank" class="hover:text-gray-600 transition-colors">
-                    {{post.title}}
-                    @if (post.isSeries) {
-                    <span
-                      class="inline-block relative -top-0.5 mr-1.5 rounded-full bg-indigo-50 px-2 py-0.5 text-[10px] font-bold text-indigo-700 uppercase tracking-wider ring-1 ring-inset ring-indigo-700/10">Series</span>
-                    }
-                  </a>
-                </h3>
-                <p class="text-[13px] sm:text-sm text-gray-700 leading-relaxed line-clamp-2 sm:line-clamp-none">
-                  {{post.description}}</p>
-                <div class="flex items-center justify-between pt-1">
-                  <a [href]="post.link" target="_blank"
-                    class="inline-flex items-center gap-1.5 text-sm font-semibold text-gray-900 hover:text-gray-600 transition-colors group/link">
-                    {{post.isSeries ? 'Read Articles' : 'Read Article'}}
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                      stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
-                      class="transition-transform group-hover/link:translate-x-0.5">
-                      <line x1="5" y1="12" x2="19" y2="12"></line>
-                      <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
-                  </a>
-                  @if (post.pdfLink) {
-                  <a [href]="post.pdfLink" target="_blank" rel="noreferrer"
-                    class="text-xs font-medium text-gray-400 hover:text-gray-600 transition-colors flex items-center gap-1 pl-[20px] pr-0 pb-0"
-                    title="Download PDF">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
-                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                      <polyline points="14 2 14 8 20 8"></polyline>
-                    </svg>
-                    PDF
-                  </a>
-                  }
-                </div>
-              </div>
-            </article>
-          </a>
-          }
-        </div>
-
-        <!-- Check out all articles button -->
-        <div class="pt-1">
-          <a href="https://dev.to/albertoboffi" target="_blank" rel="noopener noreferrer"
-            class="group flex items-center justify-center gap-2.5 w-full py-3 px-4 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 hover:border-gray-300 text-sm font-medium text-gray-900 transition-all duration-200 shadow-xs">
-            <svg class="w-5 h-5 text-gray-800 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path
-                d="M7.42 10.05c-.18-.16-.46-.23-.84-.23H5.34v4.36h1.24c.38 0 .66-.07.84-.22.19-.16.29-.42.29-.8v-2.32c0-.37-.1-.63-.29-.79zm5.34.82v2.73h-1.5v-2.73h1.5zM21 4H3C2.45 4 2 4.45 2 5v14c0 .55.45 1 1 1h18c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zM8.84 13.91c-.34.34-.84.51-1.48.51H4.15V9.58h3.21c.64 0 1.14.17 1.48.51.34.34.52.85.52 1.52v.78c0 .67-.18 1.18-.52 1.52zm5.12-.52c0 .32-.07.6-.21.82-.14.22-.35.39-.62.5-.27.11-.6.17-.98.17h-2.7V9.58h2.7c.38 0 .71.06.98.17.27.11.48.28.62.5.14.22.21.5.21.82v2.32zm5.89-3.03h-2.14v4.47h-1.19V9.58h3.33v.78z" />
-            </svg>
-            <span>Explore all articles</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-              class="transition-transform group-hover:translate-x-1 text-gray-500">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </a>
         </div>
       </section>
 

@@ -80,8 +80,8 @@ export class App implements OnInit, AfterViewInit {
     { id: 'experience', label: 'Current Role' },
     { id: 'education', label: 'Education' },
     { id: 'skills', label: 'Tech Stack' },
-    { id: 'projects', label: 'Projects' },
     { id: 'blog', label: 'Blog' },
+    { id: 'projects', label: 'Projects' },
     { id: 'extracurricular', label: 'Extracurricular' }
   ];
 
