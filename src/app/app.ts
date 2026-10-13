@@ -197,7 +197,7 @@ export class App implements OnInit, AfterViewInit {
       role: 'Software Engineer • Tech Lead',
       date: 'May 2024 — Present',
       description: 'Joined as a hands-on software engineer on a large-scale multinational web ecosystem for connected devices, progressively becaming a key point of reference for the application’s front-end, now serving 7+ countries and ~500K users. In parallel, I’ve grown into the owner and developer of an upcoming application for the USA market, targeting 1M users.\n\n<b>Tech Scope</b>: Design and implement complex data exchange features across devices, UIs, and BE services, leveraging autonomous agents and LLM-driven solutions. Lead the full SDLC and interface with global stakeholders to deliver a reliable E2E delivery process. Cultivated data science competencies to drive data-informed decision-making.',
-      photo: './assets/reply.webp'
+      photo: './assets/icons/reply.webp'
     }
   ];
 
@@ -207,14 +207,14 @@ export class App implements OnInit, AfterViewInit {
       course: 'Computer Science & Engineering',
       date: 'Sept. 2021 — April 2024',
       description: "• Grade: 110/110 Cum Laude\n• Completed my thesis with VirtualRelativity, an interactive simulation of the Special Theory of Relativity in Virtual Reality.",
-      photo: './assets/polimi.webp'
+      photo: './assets/icons/polimi.webp'
     },
     {
       school: 'Politecnico di Milano • Bachelor of Science',
       course: 'Ingegneria Informatica',
       date: 'Sept. 2018 — Sept. 2021',
       description: '',
-      photo: './assets/polimi.webp'
+      photo: './assets/icons/polimi.webp'
     }
   ];
 
@@ -385,7 +385,7 @@ export class App implements OnInit, AfterViewInit {
     },
     {
       title: 'Automated HRI Simulation Environments for Healthcare Scenarios',
-      date: '2023',
+      date: '2022',
       badge: 'Archived',
       status: 'deprecated',
       description: 'Simulation framework developed in collaboration with researchers and professors at Politecnico di Milano to model and evaluate stochastic human-robot interaction within healthcare environments. Designed to bridge the gap between robotics engineering and clinical workflows, the system enabled healthcare professionals to define and customize interaction scenarios through high-level declarative notation without low-level programming. The framework automatically generated corresponding 3D virtual environments, delivering real-time visual simulation and quantitative evaluation to assess patient-robot safety, workflow efficiency, and collaborative dynamics.',
@@ -423,7 +423,7 @@ export class App implements OnInit, AfterViewInit {
 
   mvpProjects: Project[] = [
     {
-      title: 'Moka PHP: A Lightweight PHP Library for Building High-Performance REST APIs',
+      title: 'Moka PHP: A Lightweight PHP Library for High-Performance REST APIs',
       badge: 'In Progress',
       status: 'in_progress',
       description: 'As my newest project, currently in its early stages of development, Moka PHP is built to overcome the overhead of monolithic frameworks as a lightweight library engineered for ultra-low latency REST APIs and developer simplicity. With an intuitive, clutter-free setup, it is ideal for high-throughput applications, AI microservices requiring real-time agent/LLM data streaming, and rapid prototyping where speed and ease of use are non-negotiable. Development is currently focused on expanding the core to include a dedicated abstraction layer for SQL database interactions and a comprehensive module for user authentication and account management.',
@@ -453,9 +453,9 @@ export class App implements OnInit, AfterViewInit {
       coverUrl: './assets/projects_cover/solarsystem.mp4',
       videoUrl: 'https://vimeo.com/1183285952',
       links: [
-        { name: 'Live Usage!', url: 'https://solar-system.netsons.org/' },
         { name: 'GitHub ↗', url: 'https://github.com/albertoboffi/solar-system-3d' },
-        { name: 'Demo ↗', url: 'https://vimeo.com/1183285952' }
+        { name: 'Demo ↗', url: 'https://vimeo.com/1183285952' },
+        { name: 'Live Usage!', url: 'https://solar-system.netsons.org/' }
       ]
     }
   ];
@@ -465,7 +465,7 @@ export class App implements OnInit, AfterViewInit {
       title: 'Progressive Web Apps: The Web’s Answer to Native Applications',
       description: 'Applied research to evaluate KPIs of PWAs for potential adoption in enterprise projects.',
       link: 'https://dev.to/albertoboffi/series/43437',
-      photo: './assets/blog_pwa.webp',
+      photo: './assets/blog_covers/blog_pwa.webp',
       pdfLink: './assets/papers/pwa_boffi.pdf',
       isSeries: true
     },
@@ -473,7 +473,7 @@ export class App implements OnInit, AfterViewInit {
       title: 'From One-Time-Pad to PKI: How Real-World Encryption Protects Our Data',
       description: 'Highly technical review of cryptographic techniques and their theoretical foundations.',
       link: 'https://dev.to/albertoboffi/series/43198',
-      photo: './assets/blog_cryptography.webp',
+      photo: './assets/blog_covers/blog_cryptography.webp',
       pdfLink: './assets/papers/cryptography_boffi.pdf',
       isSeries: true
     },
@@ -481,7 +481,7 @@ export class App implements OnInit, AfterViewInit {
       title: 'Move Fast, Fail Fast, Judge Fair: Why Tech Needs Outcome-Based Responsibility',
       description: 'Comparative analysis of responsibility attribution frameworks and their impact on modern engineering teams.',
       link: 'https://dev.to/albertoboffi/move-fast-fail-fast-judge-fair-why-tech-needs-outcome-based-responsibility-5747',
-      photo: './assets/blog_responsibility.webp',
+      photo: './assets/blog_covers/blog_responsibility.webp',
       pdfLink: './assets/papers/responsibility_boffi.pdf'
     }
   ];
@@ -491,13 +491,13 @@ export class App implements OnInit, AfterViewInit {
       title: 'Competitive Football',
       date: '2006 — 2021, Current',
       description: 'Football career spanning 15 years, with experience up to the regional level.',
-      photo: './assets/figc.webp'
+      photo: './assets/icons/figc.webp'
     },
     {
       title: 'PoliMi Athletics Team',
       date: '2021 — 2022',
       description: 'Former member of the Official Athletics Team of Politecnico di Milano.',
-      photo: './assets/sport_polimi.webp'
+      photo: './assets/icons/sport_polimi.webp'
     }
   ];
 
@@ -505,7 +505,7 @@ export class App implements OnInit, AfterViewInit {
     email: 'mailto:albertoboffi.1999@gmail.com',
     github: 'https://github.com/albertoboffi/',
     linkedin: 'https://www.linkedin.com/in/alberto-boffi/',
-    resume: '#',
-    cv: '#'
+    resume: './assets/cv/resume.pdf',
+    cv: './assets/cv/cv.pdf'
   };
 }
