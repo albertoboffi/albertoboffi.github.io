@@ -57,7 +57,7 @@ The result is a production-grade web application that bridges high-velocity AI e
 ## 📁 Repository Structure
 
 ```text
-personal-website/
+albertoboffi.github.io/
 ├── public/                 # Static public assets, CVs, papers, and media
 │   └── assets/             # Images, icons, videos, and PDF documents
 ├── src/
@@ -96,8 +96,8 @@ personal-website/
 Clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/albertoboffi/personal-website.git
-cd personal-website
+git clone https://github.com/albertoboffi/albertoboffi.github.io.git
+cd albertoboffi.github.io
 npm install
 ```
 
@@ -140,13 +140,6 @@ npm run serve:ssr:app
 
 **Alberto Boffi** — *Computer Science Engineer & Tech Lead*
 
-- **Website**: [albertoboffi.com](https://albertoboffi.com)
-- **LinkedIn**: [linkedin.com/in/alberto-boffi](https://www.linkedin.com/in/alberto-boffi/)
+- **Website**: [albertoboffi.github.io](https://albertoboffi.github.io)
+- **LinkedIn**: [@alberto-boffi](https://www.linkedin.com/in/alberto-boffi/)
 - **GitHub**: [@albertoboffi](https://github.com/albertoboffi/)
-- **Email**: [albertoboffi.1999@gmail.com](mailto:albertoboffi.1999@gmail.com)
-
----
-
-## 📄 License
-
-This project is open-source and available under the [MIT License](LICENSE).
