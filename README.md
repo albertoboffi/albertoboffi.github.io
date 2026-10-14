@@ -1,4 +1,4 @@
-# Alberto Boffi — Personal Portfolio & Engineering Showcase
+# Alberto Boffi - Personal Portfolio & Engineering Showcase
 
 [![Angular](https://img.shields.io/badge/Angular-21.0-DD0031?style=for-the-badge&logo=angular&logoColor=white)](https://angular.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -18,7 +18,7 @@ This project was engineered leveraging **[Google AI Studio](https://aistudio.goo
 
 Rather than relying on unmonitored code synthesis, the project adopted a **human-governed, AI-augmented engineering paradigm**:
 
-- **Architectural Governance**: All architectural abstractions—from state reactivity using Angular Signals to SSR hydration boundaries—were designed and structured with strict engineering oversight.
+- **Architectural Governance**: All architectural abstractions-from state reactivity using Angular Signals to SSR hydration boundaries-were designed and structured with strict engineering oversight.
 - **Strict Typing & Contracts**: Full TypeScript compliance (`~5.9`) with strongly typed data structures (`Experience`, `Education`, `Project`, `SkillCategory`), ensuring compile-time safety and maintainability.
 - **Performance & Reactivity Standards**: Enforced `ChangeDetectionStrategy.OnPush` across components, fine-grained reactive primitives (`signal`, `computed`), and SSR-safe execution guards (`isPlatformBrowser`).
 - **Design System Consistency**: Iterative UI scaffolding in Google AI Studio guided by Tailwind CSS v4 design tokens, semantic typography (`Inter` & `JetBrains Mono`), and accessible interaction models.
@@ -138,7 +138,7 @@ npm run serve:ssr:app
 
 ## 👤 Author
 
-**Alberto Boffi** — *Computer Science Engineer & Tech Lead*
+**Alberto Boffi** - *Computer Science Engineer & Tech Lead*
 
 - **Website**: [albertoboffi.github.io](https://albertoboffi.github.io)
 - **LinkedIn**: [@alberto-boffi](https://www.linkedin.com/in/alberto-boffi/)

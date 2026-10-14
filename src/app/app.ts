@@ -195,7 +195,7 @@ export class App implements OnInit, AfterViewInit {
     {
       company: 'Connect Reply',
       role: 'Software Engineer • Tech Lead',
-      date: 'May 2024 — Present',
+      date: 'May 2024 - Present',
       description: 'Joined as a hands-on software engineer on a large-scale multinational web ecosystem for connected devices, progressively becaming a key point of reference for the application’s front-end, now serving 7+ countries and ~500K users. In parallel, I’ve grown into the owner and developer of an upcoming application for the USA market, targeting 1M users.\n\n<b>Tech Scope</b>: Design and implement complex data exchange features across devices, UIs, and BE services, leveraging autonomous agents and LLM-driven solutions. Lead the full SDLC and interface with global stakeholders to deliver a reliable E2E delivery process. Cultivated data science competencies to drive data-informed decision-making.',
       photo: './assets/icons/reply.webp'
     }
@@ -205,14 +205,14 @@ export class App implements OnInit, AfterViewInit {
     {
       school: 'Politecnico di Milano • Master of Science',
       course: 'Computer Science & Engineering',
-      date: 'Sept. 2021 — April 2024',
+      date: 'Sept. 2021 - April 2024',
       description: "• Grade: 110/110 Cum Laude\n• Completed my thesis with VirtualRelativity, an interactive simulation of the Special Theory of Relativity in Virtual Reality.",
       photo: './assets/icons/polimi.webp'
     },
     {
       school: 'Politecnico di Milano • Bachelor of Science',
       course: 'Ingegneria Informatica',
-      date: 'Sept. 2018 — Sept. 2021',
+      date: 'Sept. 2018 - Sept. 2021',
       description: '',
       photo: './assets/icons/polimi.webp'
     }
@@ -489,13 +489,13 @@ export class App implements OnInit, AfterViewInit {
   extracurricular: Extracurricular[] = [
     {
       title: 'Competitive Football',
-      date: '2006 — 2021, Current',
+      date: '2006 - 2021, Current',
       description: 'Football career spanning 15 years, with experience up to the regional level.',
       photo: './assets/icons/figc.webp'
     },
     {
       title: 'PoliMi Athletics Team',
-      date: '2021 — 2022',
+      date: '2021 - 2022',
       description: 'Former member of the Official Athletics Team of Politecnico di Milano.',
       photo: './assets/icons/sport_polimi.webp'
     }
